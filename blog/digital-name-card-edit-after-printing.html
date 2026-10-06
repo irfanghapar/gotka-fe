@@ -745,6 +745,55 @@
             white-space: nowrap;
         }
 
+        /* phones: a table of two or three columns fits the screen; a wider one scrolls sideways under its first
+           column, which stays in view so every figure keeps its row's name beside it */
+        @media screen and (max-width: 767px) {
+
+            /* each cell carries its own rule (not one shared with its neighbours), so the rule stays with the first
+               column when that column stays in view */
+            .gk-table {
+                border-collapse: separate;
+                border-spacing: 0;
+                font-size: 0.875rem;
+            }
+
+            .gk-table th,
+            .gk-table td,
+            .gk-table.is-wide th,
+            .gk-table.is-wide td {
+                padding: 0.75rem 0.625rem;
+            }
+
+            .gk-table th:first-child,
+            .gk-table td:first-child {
+                padding-left: 0.875rem;
+            }
+
+            .gk-table.is-fit {
+                min-width: 0;
+            }
+
+            .gk-table:not(.is-fit) th:first-child,
+            .gk-table:not(.is-fit) td:first-child {
+                position: sticky;
+                left: 0;
+                z-index: 1;
+            }
+
+            .gk-table:not(.is-fit) td:first-child {
+                background-color: #f3f6f8;
+                box-shadow: 1px 0 0 rgba(1, 16, 50, 0.1);
+            }
+
+            .gk-table:not(.is-fit) td.is-win:first-child {
+                background-color: #e4ecfd;
+            }
+
+            .gk-table:not(.is-fit) th:first-child {
+                box-shadow: 1px 0 0 rgba(255, 255, 255, 0.14);
+            }
+        }
+
         /* diagrams: the full width of the text (Webflow keeps a rich-text figure to 60%); drawn at a fixed size, so on a
            phone they scroll sideways instead of shrinking until unreadable */
         .blogs_richtext .gk-figure {
@@ -990,6 +1039,24 @@
                 padding: 0 0.25rem 0.5rem;
             }
         }
+
+        /* phones: an article's title runs to sixty characters and more, so it is set a size below a page's main heading
+           (seven lines of it otherwise); the topic and date under the author may take two lines, and the topic is
+           easier to tap */
+        @media screen and (max-width: 479px) {
+            .section_hero h1 {
+                font-size: 2.125rem;
+                line-height: 1.1;
+            }
+
+            .hero_blogs_date {
+                line-height: 1.5;
+            }
+
+            .hero_blogs_date a {
+                padding: 0.625rem 0;
+            }
+        }
     </style>
     <style>
         .w-webflow-badge {
@@ -1191,6 +1258,12 @@
         /* ── END: GOOGLE ANALYTICS ── */
     </script>
     <style>
+        /* the site's own pictures carry their width and height, so a page keeps their place while they load; the height
+           stays automatic wherever a rule of the template or of a page does not set it (this one has no weight) */
+        :where(img[src^="images/"][width][height], img[src^="../images/"][width][height]) {
+            height: auto;
+        }
+
         /* floating contact buttons on every page: WhatsApp, and "Message us" which opens the enquiry form.
            They sit above the template's soft blur along the bottom of the screen (z-index 400) and below the menu (1000). */
         .gk-fab {
@@ -1245,11 +1318,14 @@
             background-image: radial-gradient(circle at 200% 10%, var(--_colors---base--light-blue-300), var(--_colors---base--blue-100));
         }
 
-        /* phones: round icon buttons, so they cover as little of the page as possible */
-        @media screen and (max-width: 767px) {
+        /* phones and tablets (a narrow screen, or any touch screen): round icon buttons, so they cover as little of the
+           page as possible */
+        @media screen and (max-width: 991px),
+        screen and (hover: none) and (pointer: coarse) {
             .gk-fab {
                 right: 0.75rem;
-                bottom: 0.75rem;
+                bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+                transition: opacity 0.2s, visibility 0.2s;
             }
 
             .gk-fab_btn {
@@ -1267,6 +1343,22 @@
                 clip: rect(0, 0, 0, 0);
                 white-space: nowrap;
             }
+
+            /* they step aside while an enquiry form or a summary's send buttons are on screen, or something is being
+               typed (see FLOATING BUTTONS below): there the page's own buttons run to the edge of the screen, and the
+               floating ones would sit on top of them */
+            .gk-fab.is-away {
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        /* beside a builder's own bar along the bottom, "Message us" would offer the same thing twice */
+        @media screen and (max-width: 991px) {
+            body.gk-bar-on .gk-fab_btn.is-msg {
+                display: none;
+            }
         }
 
         /* footer: four link columns (Services, Company, Clients Area, Legal) share the row the template gives to three;
@@ -1282,6 +1374,158 @@
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 3rem 1.5rem;
+            }
+
+            /* footer links are easier to tap: each one's area grows into the space that is already between them */
+            .footer_link,
+            .footer_info-link,
+            .footer_btm-link {
+                margin-top: -0.625rem;
+                margin-bottom: -0.625rem;
+                padding-top: 0.625rem;
+                padding-bottom: 0.625rem;
+            }
+
+            .footer_btm-right {
+                margin: -0.625rem;
+                padding: 0.625rem;
+            }
+        }
+
+        /* ---------- phones and tablets ---------- */
+        /* the menu is as tall as its links and button, and never taller than the screen (it scrolls there instead).
+           The template gives it 70% of the screen height, which cut the button off below five links */
+        @media screen and (max-width: 991px) {
+
+            .nav_menu-wrap,
+            .nav_menu-contain,
+            .nav_menu_flex-wrap {
+                height: auto;
+            }
+
+            .nav_menu_flex-wrap {
+                max-height: calc(100vh - 8rem);
+                max-height: calc(100dvh - 8rem);
+                row-gap: 2rem;
+                overscroll-behavior: contain;
+            }
+        }
+
+        /* on a short screen the links sit closer together, so the whole menu is in view at once */
+        @media screen and (max-width: 991px) and (max-height: 740px) {
+            .nav_menu_flex-wrap {
+                padding-top: 1.75rem;
+                row-gap: 1.5rem;
+            }
+
+            .nav_menu-list {
+                row-gap: 1.25rem;
+            }
+
+            .nav_menu-link {
+                padding-bottom: 1.25rem;
+            }
+
+            .nav_menu-link.is-blogs {
+                padding-bottom: 0;
+            }
+        }
+
+        @media screen and (max-width: 991px) and (max-height: 600px) {
+            .nav_menu_flex-wrap {
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;
+                row-gap: 1rem;
+            }
+
+            .nav_menu-list {
+                row-gap: 0.75rem;
+            }
+
+            .nav_menu-link {
+                padding-bottom: 0.75rem;
+            }
+
+            .nav_menu-link.is-blogs {
+                padding-bottom: 0;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+
+            /* section headings break into lines of even length (the template does this for a page's main heading) */
+            h2,
+            h3 {
+                text-wrap: balance;
+            }
+
+            /* a long word in a heading (an email address, a domain name) wraps instead of running off the screen */
+            h1,
+            h2,
+            h3 {
+                overflow-wrap: break-word;
+            }
+
+            /* homepage service tabs: the template leaves 100px between a card's heading and its list */
+            .features_tab_card {
+                row-gap: 2.5rem;
+            }
+
+            /* price lists scroll sideways only: nothing inside them scrolls up and down on its own */
+            .pricing-table_wrap {
+                overflow-y: hidden;
+            }
+
+            /* extension chips and the small option pills: a little taller */
+            .gk-chip,
+            .gk-pills.is-small .gk-pill>span {
+                padding-top: 0.625rem;
+                padding-bottom: 0.625rem;
+            }
+        }
+
+        /* touch screens: short text links get a taller area to tap */
+        @media screen and (max-width: 991px) {
+
+            /* links that sit side by side, or one under another once they wrap: the space between them becomes theirs */
+            .gk-links,
+            .gk-help_links,
+            .gk-contact-links {
+                row-gap: 0;
+            }
+
+            .gk-links a,
+            .gk-help_links a,
+            .gk-contact-links a {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+
+            .gk-help_links {
+                margin-top: -0.25rem;
+                margin-bottom: -0.5rem;
+            }
+
+            .gk-contact-links {
+                margin-top: -0.5rem;
+                margin-bottom: -0.5rem;
+            }
+
+            /* a link, or a button that reads as one, in a sentence: its area reaches a little past the words */
+            .gk-link,
+            .gk-text-link,
+            .gk-assure a,
+            .gk-why-text h3 a {
+                position: relative;
+            }
+
+            .gk-link::after,
+            .gk-text-link::after,
+            .gk-assure a::after,
+            .gk-why-text h3 a::after {
+                content: "";
+                position: absolute;
+                inset: -0.5rem -0.25rem;
             }
         }
 
@@ -1476,6 +1720,22 @@
             color: #fff;
         }
 
+        /* touch screens: fields at 16px (an iPhone zooms the page in when a field with smaller text is tapped),
+           and language buttons large enough to tap */
+        @media screen and (max-width: 991px) {
+
+            [data-gotech-lead-form] input,
+            [data-gotech-lead-form] textarea {
+                font-size: 1rem;
+            }
+
+            [data-gotech-lead-form] .glf-lang-btn {
+                min-width: 2.75rem;
+                min-height: 2.25rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+
         /* in the dialog the form is a little tighter */
         .gk-lb [data-gotech-lead-form] form,
         .gk-lb [data-gotech-lead-form] .glf-row {
@@ -1639,7 +1899,7 @@
                                             </svg></button></div>
                                 </div>
                                 <div class="gk-post-top">
-                                    <div class="gk-post-cover"><img alt="" fetchpriority="high" loading="eager" src="../images/blog-digital-name-card-edit-after-printing.webp" /></div>
+                                    <div class="gk-post-cover"><img alt="" fetchpriority="high" height="604" loading="eager" src="../images/blog-digital-name-card-edit-after-printing.webp" width="504" /></div>
                                     <div class="gk-post-answer">
                                         <p class="gk-post-kicker">Quick answer</p>
                                         <p>Yes, you can edit a digital name card after it's printed. The QR code or NFC chip on the physical card doesn't store your phone number, title or company — it only points to your live digital profile. Update that profile and the change appears instantly to everyone, including people who scanned or tapped the card months ago; nothing needs reprinting. The one exception is your name, if it's visually printed or engraved on a Custom-Design card: the profile still updates instantly, but the physical card keeps showing the old name until you reorder it.</p>
@@ -1762,7 +2022,7 @@
                                 <article class="blogs_card-wrap"><a aria-label="What Happens to a Digital Name Card When an Employee Leaves?" class="blogs_card w-inline-block" data-card="blogs" href="../blog/digital-name-card-when-employee-leaves.html">
                                         <div class="blogs_card-overlay" data-card="overlay"></div>
                                         <div class="blogs_card-inner">
-                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" loading="lazy" src="../images/blog-digital-name-card-when-employee-leaves.webp" /></div>
+                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" height="604" loading="lazy" src="../images/blog-digital-name-card-when-employee-leaves.webp" width="504" /></div>
                                             <div class="blogs_card_content">
                                                 <div class="blogs_card_content-top">
                                                     <p>17 September 2026</p>
@@ -1774,7 +2034,7 @@
                                 <article class="blogs_card-wrap"><a aria-label="Digital Name Cards for Freelancers and Solo Consultants Without a Company Behind Them" class="blogs_card w-inline-block" data-card="blogs" href="../blog/digital-name-card-freelancers-solo-consultants.html">
                                         <div class="blogs_card-overlay" data-card="overlay"></div>
                                         <div class="blogs_card-inner">
-                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" loading="lazy" src="../images/blog-digital-name-card-freelancers-solo-consultants.webp" /></div>
+                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" height="604" loading="lazy" src="../images/blog-digital-name-card-freelancers-solo-consultants.webp" width="504" /></div>
                                             <div class="blogs_card_content">
                                                 <div class="blogs_card_content-top">
                                                     <p>17 September 2026</p>
@@ -1786,7 +2046,7 @@
                                 <article class="blogs_card-wrap"><a aria-label="What Your Digital Name Card Scan Count Is Actually Telling You" class="blogs_card w-inline-block" data-card="blogs" href="../blog/digital-name-card-scan-count.html">
                                         <div class="blogs_card-overlay" data-card="overlay"></div>
                                         <div class="blogs_card-inner">
-                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" loading="lazy" src="../images/blog-digital-name-card-scan-count.webp" /></div>
+                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" height="604" loading="lazy" src="../images/blog-digital-name-card-scan-count.webp" width="504" /></div>
                                             <div class="blogs_card_content">
                                                 <div class="blogs_card_content-top">
                                                     <p>9 September 2026</p>
@@ -1798,7 +2058,7 @@
                                 <article class="blogs_card-wrap"><a aria-label="QR Codes vs Short Links on a Digital Name Card: Do You Need Both?" class="blogs_card w-inline-block" data-card="blogs" href="../blog/digital-name-card-qr-vs-short-link.html">
                                         <div class="blogs_card-overlay" data-card="overlay"></div>
                                         <div class="blogs_card-inner">
-                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" loading="lazy" src="../images/blog-digital-name-card-qr-vs-short-link.webp" /></div>
+                                            <div class="blogs_card_img-wrap"><img alt="" data-card="img" height="604" loading="lazy" src="../images/blog-digital-name-card-qr-vs-short-link.webp" width="504" /></div>
                                             <div class="blogs_card_content">
                                                 <div class="blogs_card_content-top">
                                                     <p>29 September 2026</p>
@@ -1845,7 +2105,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="footer_img-wrap"><img alt="" loading="lazy" src="../images/gotka-footer-v2.webp" />
+                                <div class="footer_img-wrap"><img alt="" height="468" loading="lazy" src="../images/gotka-footer-v2.webp" width="708" />
                                     <div class="footer_img-overlay"></div>
                                 </div>
                             </div>
@@ -2116,12 +2376,16 @@
             const dialog = document.getElementById('lead-lb');
             if (!dialog || typeof dialog.showModal !== 'function') return;
 
+            // with a mouse the first field is ready to type in; on a touch screen that would bring the keyboard up over
+            // half of the form before it has been seen, so there the dialog opens as it is
+            const typing = window.matchMedia('(hover: hover) and (pointer: fine)');
+
             document.addEventListener('click', event => {
                 if (event.target.closest('[data-lb-open]')) {
                     event.preventDefault();
                     dialog.showModal();
                     const field = dialog.querySelector('input:not([tabindex="-1"]), textarea');
-                    if (field) field.focus();
+                    if (field && typing.matches) field.focus();
                 } else if (event.target.closest('[data-lb-close]') || event.target === dialog) {
                     dialog.close();
                 }
@@ -2135,6 +2399,45 @@
             }));
         })();
         /* ── END: ENQUIRY DIALOG ── */
+
+        /* ── START: FLOATING BUTTONS ── */
+        // — On phones and tablets the WhatsApp and "Message us" buttons float over the page's right-hand edge.
+        //   They step aside (the stylesheet fades .gk-fab.is-away out on narrow and touch screens) while:
+        //   · an enquiry form in the page, or the send buttons of a summary card, are on screen: the page's own
+        //     buttons run to the edge of the screen there
+        //   · something is being typed into any field: the keyboard leaves little of the screen as it is
+        // — They come back when those have scrolled away and the field is left
+        (() => {
+            const buttons = document.querySelector('.gk-fab');
+            if (!buttons) return;
+
+            const forms = new Set();
+            let typing = false;
+            const update = () => buttons.classList.toggle('is-away', typing || forms.size > 0);
+            const isField = target => !!target && target.matches('textarea, select, input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="button"]):not([type="submit"])');
+
+            document.addEventListener('focusin', event => {
+                typing = isField(event.target);
+                update();
+            });
+            document.addEventListener('focusout', () => {
+                typing = false;
+                update();
+            });
+
+            if (!('IntersectionObserver' in window)) return;
+            const watcher = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) forms.add(entry.target);
+                    else forms.delete(entry.target);
+                });
+                update();
+            });
+            document.querySelectorAll('[data-gotech-lead-form], .gk-sum_actions').forEach(part => {
+                if (!part.closest('dialog')) watcher.observe(part);
+            });
+        })();
+        /* ── END: FLOATING BUTTONS ── */
 
         /* ── START: ENQUIRY FORM FALLBACK ── */
         // — The enquiry form is drawn by crm.gotka.com into every [data-gotech-lead-form]

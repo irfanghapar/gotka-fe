@@ -904,6 +904,12 @@
         /* ── END: GOOGLE ANALYTICS ── */
     </script>
     <style>
+        /* the site's own pictures carry their width and height, so a page keeps their place while they load; the height
+           stays automatic wherever a rule of the template or of a page does not set it (this one has no weight) */
+        :where(img[src^="images/"][width][height], img[src^="../images/"][width][height]) {
+            height: auto;
+        }
+
         /* floating contact buttons on every page: WhatsApp, and "Message us" which opens the enquiry form.
            They sit above the template's soft blur along the bottom of the screen (z-index 400) and below the menu (1000). */
         .gk-fab {
@@ -958,11 +964,14 @@
             background-image: radial-gradient(circle at 200% 10%, var(--_colors---base--light-blue-300), var(--_colors---base--blue-100));
         }
 
-        /* phones: round icon buttons, so they cover as little of the page as possible */
-        @media screen and (max-width: 767px) {
+        /* phones and tablets (a narrow screen, or any touch screen): round icon buttons, so they cover as little of the
+           page as possible */
+        @media screen and (max-width: 991px),
+        screen and (hover: none) and (pointer: coarse) {
             .gk-fab {
                 right: 0.75rem;
-                bottom: 0.75rem;
+                bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+                transition: opacity 0.2s, visibility 0.2s;
             }
 
             .gk-fab_btn {
@@ -980,6 +989,22 @@
                 clip: rect(0, 0, 0, 0);
                 white-space: nowrap;
             }
+
+            /* they step aside while an enquiry form or a summary's send buttons are on screen, or something is being
+               typed (see FLOATING BUTTONS below): there the page's own buttons run to the edge of the screen, and the
+               floating ones would sit on top of them */
+            .gk-fab.is-away {
+                visibility: hidden;
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        /* beside a builder's own bar along the bottom, "Message us" would offer the same thing twice */
+        @media screen and (max-width: 991px) {
+            body.gk-bar-on .gk-fab_btn.is-msg {
+                display: none;
+            }
         }
 
         /* footer: four link columns (Services, Company, Clients Area, Legal) share the row the template gives to three;
@@ -995,6 +1020,158 @@
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 3rem 1.5rem;
+            }
+
+            /* footer links are easier to tap: each one's area grows into the space that is already between them */
+            .footer_link,
+            .footer_info-link,
+            .footer_btm-link {
+                margin-top: -0.625rem;
+                margin-bottom: -0.625rem;
+                padding-top: 0.625rem;
+                padding-bottom: 0.625rem;
+            }
+
+            .footer_btm-right {
+                margin: -0.625rem;
+                padding: 0.625rem;
+            }
+        }
+
+        /* ---------- phones and tablets ---------- */
+        /* the menu is as tall as its links and button, and never taller than the screen (it scrolls there instead).
+           The template gives it 70% of the screen height, which cut the button off below five links */
+        @media screen and (max-width: 991px) {
+
+            .nav_menu-wrap,
+            .nav_menu-contain,
+            .nav_menu_flex-wrap {
+                height: auto;
+            }
+
+            .nav_menu_flex-wrap {
+                max-height: calc(100vh - 8rem);
+                max-height: calc(100dvh - 8rem);
+                row-gap: 2rem;
+                overscroll-behavior: contain;
+            }
+        }
+
+        /* on a short screen the links sit closer together, so the whole menu is in view at once */
+        @media screen and (max-width: 991px) and (max-height: 740px) {
+            .nav_menu_flex-wrap {
+                padding-top: 1.75rem;
+                row-gap: 1.5rem;
+            }
+
+            .nav_menu-list {
+                row-gap: 1.25rem;
+            }
+
+            .nav_menu-link {
+                padding-bottom: 1.25rem;
+            }
+
+            .nav_menu-link.is-blogs {
+                padding-bottom: 0;
+            }
+        }
+
+        @media screen and (max-width: 991px) and (max-height: 600px) {
+            .nav_menu_flex-wrap {
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;
+                row-gap: 1rem;
+            }
+
+            .nav_menu-list {
+                row-gap: 0.75rem;
+            }
+
+            .nav_menu-link {
+                padding-bottom: 0.75rem;
+            }
+
+            .nav_menu-link.is-blogs {
+                padding-bottom: 0;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+
+            /* section headings break into lines of even length (the template does this for a page's main heading) */
+            h2,
+            h3 {
+                text-wrap: balance;
+            }
+
+            /* a long word in a heading (an email address, a domain name) wraps instead of running off the screen */
+            h1,
+            h2,
+            h3 {
+                overflow-wrap: break-word;
+            }
+
+            /* homepage service tabs: the template leaves 100px between a card's heading and its list */
+            .features_tab_card {
+                row-gap: 2.5rem;
+            }
+
+            /* price lists scroll sideways only: nothing inside them scrolls up and down on its own */
+            .pricing-table_wrap {
+                overflow-y: hidden;
+            }
+
+            /* extension chips and the small option pills: a little taller */
+            .gk-chip,
+            .gk-pills.is-small .gk-pill>span {
+                padding-top: 0.625rem;
+                padding-bottom: 0.625rem;
+            }
+        }
+
+        /* touch screens: short text links get a taller area to tap */
+        @media screen and (max-width: 991px) {
+
+            /* links that sit side by side, or one under another once they wrap: the space between them becomes theirs */
+            .gk-links,
+            .gk-help_links,
+            .gk-contact-links {
+                row-gap: 0;
+            }
+
+            .gk-links a,
+            .gk-help_links a,
+            .gk-contact-links a {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+
+            .gk-help_links {
+                margin-top: -0.25rem;
+                margin-bottom: -0.5rem;
+            }
+
+            .gk-contact-links {
+                margin-top: -0.5rem;
+                margin-bottom: -0.5rem;
+            }
+
+            /* a link, or a button that reads as one, in a sentence: its area reaches a little past the words */
+            .gk-link,
+            .gk-text-link,
+            .gk-assure a,
+            .gk-why-text h3 a {
+                position: relative;
+            }
+
+            .gk-link::after,
+            .gk-text-link::after,
+            .gk-assure a::after,
+            .gk-why-text h3 a::after {
+                content: "";
+                position: absolute;
+                inset: -0.5rem -0.25rem;
             }
         }
 
@@ -1189,6 +1366,22 @@
             color: #fff;
         }
 
+        /* touch screens: fields at 16px (an iPhone zooms the page in when a field with smaller text is tapped),
+           and language buttons large enough to tap */
+        @media screen and (max-width: 991px) {
+
+            [data-gotech-lead-form] input,
+            [data-gotech-lead-form] textarea {
+                font-size: 1rem;
+            }
+
+            [data-gotech-lead-form] .glf-lang-btn {
+                min-width: 2.75rem;
+                min-height: 2.25rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+
         /* in the dialog the form is a little tighter */
         .gk-lb [data-gotech-lead-form] form,
         .gk-lb [data-gotech-lead-form] .glf-row {
@@ -1355,7 +1548,7 @@
                                                 <div class="blogs_card-inner is-blogs">
                                                     <div class="blogs_card_img-wrap is-featured">
                                                         <picture>
-                                                            <source media="(min-width: 992px)" srcset="images/blog-domain-renewal-reminders-malaysia-wide.webp" /><img alt="" data-card="img" fetchpriority="high" loading="eager" src="images/blog-domain-renewal-reminders-malaysia.webp" />
+                                                            <source media="(min-width: 992px)" srcset="images/blog-domain-renewal-reminders-malaysia-wide.webp" /><img alt="" data-card="img" fetchpriority="high" height="604" loading="eager" src="images/blog-domain-renewal-reminders-malaysia.webp" width="504" />
                                                         </picture>
                                                     </div>
                                                     <div class="blogs_card_content is-blogs">
@@ -1372,7 +1565,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" hidden role="listitem"><a aria-label="How to Make Sure You Never Miss a Domain Renewal" class="blogs_card w-inline-block" data-card="blogs" href="blog/domain-renewal-reminders-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-domain-renewal-reminders-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-domain-renewal-reminders-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-10-01">1 October 2026</time></p>
@@ -1385,7 +1578,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Moving Your Business Data Into a New Custom System" class="blogs_card w-inline-block" data-card="blogs" href="blog/data-migration-new-business-system-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-data-migration-new-business-system-malaysia-v2.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-data-migration-new-business-system-malaysia-v2.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-30">30 September 2026</time></p>
@@ -1398,7 +1591,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Go AI Lite vs Plus vs Pro vs Max: Which Hosting Tier Does Your Business Need?" class="blogs_card w-inline-block" data-card="blogs" href="blog/go-ai-hosting-tiers-compared-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-go-ai-hosting-tiers-compared-malaysia-v2.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-go-ai-hosting-tiers-compared-malaysia-v2.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-29">29 September 2026</time></p>
@@ -1411,7 +1604,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="QR Codes vs Short Links on a Digital Name Card: Do You Need Both?" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-qr-vs-short-link.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-qr-vs-short-link.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-qr-vs-short-link.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-29">29 September 2026</time></p>
@@ -1424,7 +1617,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="Free vs Pro vs Team: Which Digital Name Card Plan Do You Need?" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-plan-comparison-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-plan-comparison-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-plan-comparison-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-28">28 September 2026</time></p>
@@ -1437,7 +1630,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="How to Choose a Domain Name for Your Business" class="blogs_card w-inline-block" data-card="blogs" href="blog/how-to-choose-domain-name-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-how-to-choose-domain-name-malaysia-v2.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-how-to-choose-domain-name-malaysia-v2.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-27">27 September 2026</time></p>
@@ -1450,7 +1643,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Gotka's 30-Day Money-Back Hosting Guarantee: What It Actually Covers" class="blogs_card w-inline-block" data-card="blogs" href="blog/hosting-money-back-guarantee-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-hosting-money-back-guarantee-malaysia-v2.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-hosting-money-back-guarantee-malaysia-v2.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-26">26 September 2026</time></p>
@@ -1463,7 +1656,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Signs It's Time to Add a Mobile App to Your Existing Web App" class="blogs_card w-inline-block" data-card="blogs" href="blog/signs-you-need-a-mobile-app-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-signs-you-need-a-mobile-app-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-signs-you-need-a-mobile-app-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-25">25 September 2026</time></p>
@@ -1476,7 +1669,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Who Owns the Source Code of Your Custom Business System?" class="blogs_card w-inline-block" data-card="blogs" href="blog/custom-software-source-code-ownership-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-custom-software-source-code-ownership-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-custom-software-source-code-ownership-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-25">25 September 2026</time></p>
@@ -1489,7 +1682,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="Can You Edit a Digital Name Card After It's Printed?" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-edit-after-printing.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-edit-after-printing.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-edit-after-printing.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-24">24 September 2026</time></p>
@@ -1502,7 +1695,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="DNS Explained: What It Actually Controls for Your Website" class="blogs_card w-inline-block" data-card="blogs" href="blog/dns-explained.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-dns-explained.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-dns-explained.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-23">23 September 2026</time></p>
@@ -1515,7 +1708,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="NFC Business Card Not Tapping? Here's How to Fix It" class="blogs_card w-inline-block" data-card="blogs" href="blog/nfc-card-not-tapping.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-nfc-card-not-tapping.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-nfc-card-not-tapping.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-22">22 September 2026</time></p>
@@ -1528,7 +1721,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="How to Secure Your cPanel Hosting Account: Passwords, 2FA and Who Has Access" class="blogs_card w-inline-block" data-card="blogs" href="blog/cpanel-account-security-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-cpanel-account-security-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-cpanel-account-security-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-22">22 September 2026</time></p>
@@ -1541,7 +1734,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Connecting Your Business System to MyInvois: What E-Invoice Integration Actually Involves" class="blogs_card w-inline-block" data-card="blogs" href="blog/myinvois-integration-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-myinvois-integration-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-myinvois-integration-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-18">18 September 2026</time></p>
@@ -1554,7 +1747,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="What Happens When Your Domain Expires — Grace Period, Redemption and Getting It Back" class="blogs_card w-inline-block" data-card="blogs" href="blog/domain-expired-what-happens-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-domain-expired-what-happens-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-domain-expired-what-happens-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1567,7 +1760,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="How to Transfer a Domain to a New Registrar Without Losing It" class="blogs_card w-inline-block" data-card="blogs" href="blog/domain-transfer-registrar-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-domain-transfer-registrar-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-domain-transfer-registrar-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1580,7 +1773,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="How Long Does Building a Custom Business System Take, Realistically?" class="blogs_card w-inline-block" data-card="blogs" href="blog/custom-business-system-timeline-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-custom-business-system-timeline-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-custom-business-system-timeline-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1593,7 +1786,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Web App vs Mobile App: Which Does Your Business Actually Need?" class="blogs_card w-inline-block" data-card="blogs" href="blog/web-app-vs-mobile-app-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-web-app-vs-mobile-app-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-web-app-vs-mobile-app-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1606,7 +1799,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Signs Your Business Has Outgrown Spreadsheets" class="blogs_card w-inline-block" data-card="blogs" href="blog/outgrown-spreadsheets-business-system-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-outgrown-spreadsheets-business-system-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-outgrown-spreadsheets-business-system-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1619,7 +1812,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="How Much Does a Custom Mobile App Cost in Malaysia?" class="blogs_card w-inline-block" data-card="blogs" href="blog/mobile-app-cost-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-mobile-app-cost-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-mobile-app-cost-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1632,7 +1825,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="Digital Name Cards for Freelancers and Solo Consultants Without a Company Behind Them" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-freelancers-solo-consultants.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-freelancers-solo-consultants.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-freelancers-solo-consultants.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1645,7 +1838,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="What Happens to a Digital Name Card When an Employee Leaves?" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-when-employee-leaves.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-when-employee-leaves.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-when-employee-leaves.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1658,7 +1851,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="How Much Website Storage Does a Small Business Actually Need?" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-storage-small-business-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-storage-small-business-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-storage-small-business-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1671,7 +1864,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="cPanel Hosting Explained: What the Control Panel Actually Lets a Non-Technical Owner Do" class="blogs_card w-inline-block" data-card="blogs" href="blog/cpanel-hosting-explained-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-cpanel-hosting-explained-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-cpanel-hosting-explained-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1684,7 +1877,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="Trademark and Business-Name Conflicts: What to Check Before You Register a Domain" class="blogs_card w-inline-block" data-card="blogs" href="blog/trademark-business-name-conflicts-domain-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-trademark-business-name-conflicts-domain-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-trademark-business-name-conflicts-domain-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-17">17 September 2026</time></p>
@@ -1697,7 +1890,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="What Are the Requirements to Register a .com.my Domain in Malaysia?" class="blogs_card w-inline-block" data-card="blogs" href="blog/com-my-domain-requirements-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-com-my-domain-requirements-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-com-my-domain-requirements-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-16">16 September 2026</time></p>
@@ -1710,7 +1903,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="How Much Does Website Maintenance Cost in Malaysia?" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-maintenance-cost-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-maintenance-cost-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-maintenance-cost-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-16">16 September 2026</time></p>
@@ -1723,7 +1916,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="How Much Does SEO Cost in Malaysia? (SEO Packages &amp; Pricing)" class="blogs_card w-inline-block" data-card="blogs" href="blog/seo-price-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-seo-price-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-seo-price-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-16">16 September 2026</time></p>
@@ -1736,7 +1929,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="Anyone in the World Can Now Register a .my Domain" class="blogs_card w-inline-block" data-card="blogs" href="blog/my-domain-registration-open-to-anyone.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-my-domain-registration-open-to-anyone.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-my-domain-registration-open-to-anyone.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-15">15 September 2026</time></p>
@@ -1749,7 +1942,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Managing Multiple Outlets or Branches With One Custom System" class="blogs_card w-inline-block" data-card="blogs" href="blog/multi-outlet-branch-management-system-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-multi-outlet-branch-management-system-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-multi-outlet-branch-management-system-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-15">15 September 2026</time></p>
@@ -1762,7 +1955,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Dashboards and Reporting: Turning Your Business Data Into Decisions" class="blogs_card w-inline-block" data-card="blogs" href="blog/business-dashboard-reporting-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-business-dashboard-reporting-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-business-dashboard-reporting-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-15">15 September 2026</time></p>
@@ -1775,7 +1968,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="What Makes a Business System ‘AI-Powered’ in 2026?" class="blogs_card w-inline-block" data-card="blogs" href="blog/ai-powered-business-system-worth-it.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-ai-powered-business-system-worth-it.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-ai-powered-business-system-worth-it.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-15">15 September 2026</time></p>
@@ -1788,7 +1981,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Why Your Website Needs Content for Both SEO and GEO" class="blogs_card w-inline-block" data-card="blogs" href="blog/why-you-need-content-for-seo-and-geo.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-why-you-need-content-for-seo-and-geo.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-why-you-need-content-for-seo-and-geo.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-13">13 September 2026</time></p>
@@ -1801,7 +1994,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="What Your Digital Name Card Scan Count Is Actually Telling You" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-scan-count.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-scan-count.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-scan-count.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1814,7 +2007,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Should Your Website Have an AI Chatbot? What It Actually Costs and Does" class="blogs_card w-inline-block" data-card="blogs" href="blog/ai-chatbot-website-cost-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-ai-chatbot-website-cost-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-ai-chatbot-website-cost-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1827,7 +2020,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Google Business Profile for Malaysian Businesses: The Fields That Actually Move Local Rankings" class="blogs_card w-inline-block" data-card="blogs" href="blog/google-business-profile-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-google-business-profile-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-google-business-profile-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1840,7 +2033,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="How LiteSpeed Actually Makes a Site Faster Than Apache or Nginx Shared Hosting" class="blogs_card w-inline-block" data-card="blogs" href="blog/litespeed-vs-apache-hosting.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-litespeed-vs-apache-hosting.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-litespeed-vs-apache-hosting.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1853,7 +2046,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="Do New Domain Extensions Hurt Your SEO Ranking? (.my, .asia, .online &amp; More)" class="blogs_card w-inline-block" data-card="blogs" href="blog/domain-extension-seo-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-domain-extension-seo-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-domain-extension-seo-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1866,7 +2059,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Running Multiple Client or Brand Websites on One Hosting Plan" class="blogs_card w-inline-block" data-card="blogs" href="blog/hosting-multiple-websites-one-plan.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-hosting-multiple-websites-one-plan.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-hosting-multiple-websites-one-plan.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1879,7 +2072,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="Domain Lock, Explained: The One Setting That Stops Unauthorised Transfers" class="blogs_card w-inline-block" data-card="blogs" href="blog/domain-lock-explained.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-domain-lock-explained.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-domain-lock-explained.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1892,7 +2085,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="Digital Name Card vs LinkedIn: Do You Need Both?" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-vs-linkedin.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-vs-linkedin.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-vs-linkedin.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1905,7 +2098,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="Buying an Expired or Aftermarket Domain: Costs, Risks and What to Check First" class="blogs_card w-inline-block" data-card="blogs" href="blog/buying-expired-domain-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-buying-expired-domain-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-buying-expired-domain-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1918,7 +2111,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Website Accessibility (WCAG) for Small Business Sites: What It Is and Do You Actually Need It" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-accessibility-small-business.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-accessibility-small-business.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-accessibility-small-business.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1931,7 +2124,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="How to Actually Hand Someone a Digital Name Card Without It Being Awkward" class="blogs_card w-inline-block" data-card="blogs" href="blog/how-to-share-digital-name-card.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-how-to-share-digital-name-card.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-how-to-share-digital-name-card.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1944,7 +2137,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Copywriting vs Design: Which Actually Moves the Needle on Conversions" class="blogs_card w-inline-block" data-card="blogs" href="blog/copywriting-vs-design-conversions.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-copywriting-vs-design-conversions.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-copywriting-vs-design-conversions.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-09">9 September 2026</time></p>
@@ -1957,7 +2150,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="How Much Does a Digital Name Card Cost in Malaysia? Free Profile vs Physical NFC Card" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-cost-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-cost-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-cost-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -1970,7 +2163,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label="Fake Domain Renewal Invoices and “Your Domain Has Expired” Emails: How to Spot the Scam" class="blogs_card w-inline-block" data-card="blogs" href="blog/fake-domain-renewal-scam-emails.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-fake-domain-renewal-scam-emails.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-fake-domain-renewal-scam-emails.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -1983,7 +2176,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Websites for Property Agents and Real Estate Negotiators" class="blogs_card w-inline-block" data-card="blogs" href="blog/property-agent-website-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-property-agent-website-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-property-agent-website-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -1996,7 +2189,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="A 10-Minute Audit: Does ChatGPT, Gemini or Perplexity Mention Your Business?" class="blogs_card w-inline-block" data-card="blogs" href="blog/ai-visibility-10-minute-audit.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-ai-visibility-10-minute-audit.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-ai-visibility-10-minute-audit.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2009,7 +2202,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Business Email on Your Own Domain: Why hello@yourcompany Beats a Gmail Address" class="blogs_card w-inline-block" data-card="blogs" href="blog/business-email-domain-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-business-email-domain-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-business-email-domain-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2022,7 +2215,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Why Your New Website Isn’t Showing on Google Yet, and What to Check" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-not-showing-on-google.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-not-showing-on-google.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-not-showing-on-google.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2035,7 +2228,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Product Catalogue or Online Store: Which Does Your Business Need?" class="blogs_card w-inline-block" data-card="blogs" href="blog/product-catalogue-vs-online-store-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-product-catalogue-vs-online-store-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-product-catalogue-vs-online-store-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2048,7 +2241,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="app-development" role="listitem"><a aria-label="Off-the-Shelf Software vs a Custom System: How to Choose" class="blogs_card w-inline-block" data-card="blogs" href="blog/off-the-shelf-vs-custom-software-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-off-the-shelf-vs-custom-software-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-off-the-shelf-vs-custom-software-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">App Development</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2061,7 +2254,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="A Pre-Launch Checklist for a New Business Website" class="blogs_card w-inline-block" data-card="blogs" href="blog/pre-launch-website-checklist.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-pre-launch-website-checklist.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-pre-launch-website-checklist.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2074,7 +2267,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="How AI Search Engines Pick Which Businesses to Recommend" class="blogs_card w-inline-block" data-card="blogs" href="blog/ai-search-engines-recommend-businesses.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-ai-search-engines-recommend-businesses.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-ai-search-engines-recommend-businesses.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2087,7 +2280,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="Setting Up a Digital Name Card for a Whole Sales Team" class="blogs_card w-inline-block" data-card="blogs" href="blog/digital-name-card-sales-team.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-digital-name-card-sales-team.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-digital-name-card-sales-team.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2100,7 +2293,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="Why Paper Business Cards Still Get Thrown Away" class="blogs_card w-inline-block" data-card="blogs" href="blog/why-paper-business-cards-get-thrown-away.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-why-paper-business-cards-get-thrown-away.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-why-paper-business-cards-get-thrown-away.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2113,7 +2306,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="digital-namecard" role="listitem"><a aria-label="NFC vs QR Business Cards: Which Works Better in Practice?" class="blogs_card w-inline-block" data-card="blogs" href="blog/nfc-vs-qr-business-cards.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-nfc-vs-qr-business-cards.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-nfc-vs-qr-business-cards.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Digital Name Card</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2126,7 +2319,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Writing a Homepage That Converts, Not Just Looks Good" class="blogs_card w-inline-block" data-card="blogs" href="blog/homepage-that-converts.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-homepage-that-converts.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-homepage-that-converts.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2139,7 +2332,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Mobile-First: Most of Your Website Visitors Are on a Phone" class="blogs_card w-inline-block" data-card="blogs" href="blog/mobile-first-website-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-mobile-first-website-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-mobile-first-website-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2152,7 +2345,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Enquiry Forms vs WhatsApp: How Customers Actually Want to Reach You" class="blogs_card w-inline-block" data-card="blogs" href="blog/enquiry-form-vs-whatsapp.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-enquiry-form-vs-whatsapp.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-enquiry-form-vs-whatsapp.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2165,7 +2358,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Do You Need a Blog, or Just Good Service Pages?" class="blogs_card w-inline-block" data-card="blogs" href="blog/blog-vs-service-pages.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-blog-vs-service-pages.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-blog-vs-service-pages.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-08">8 September 2026</time></p>
@@ -2178,7 +2371,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="How Many Pages Does a Small Business Website Actually Need?" class="blogs_card w-inline-block" data-card="blogs" href="blog/how-many-pages-small-business-website.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-how-many-pages-small-business-website.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-how-many-pages-small-business-website.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2191,7 +2384,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Why a Website Needs Ongoing Maintenance" class="blogs_card w-inline-block" data-card="blogs" href="blog/why-website-needs-ongoing-maintenance.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-why-website-needs-ongoing-maintenance.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-why-website-needs-ongoing-maintenance.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2204,7 +2397,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Moving Your Website Away From an Agency" class="blogs_card w-inline-block" data-card="blogs" href="blog/moving-website-away-from-agency.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-moving-website-away-from-agency.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-moving-website-away-from-agency.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2217,7 +2410,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Website Redesign vs Rebuild: How to Decide" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-redesign-vs-rebuild.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-redesign-vs-rebuild.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-redesign-vs-rebuild.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2230,7 +2423,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="How Long Does a Website Project Take, Realistically?" class="blogs_card w-inline-block" data-card="blogs" href="blog/how-long-website-project-takes.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-how-long-website-project-takes.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-how-long-website-project-takes.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2243,7 +2436,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="What to Prepare Before Your Website Project Starts" class="blogs_card w-inline-block" data-card="blogs" href="blog/what-to-prepare-website-project.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-what-to-prepare-website-project.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-what-to-prepare-website-project.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2256,7 +2449,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="How Much Does a Website Cost in Malaysia?" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-cost-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-cost-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-cost-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2269,7 +2462,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="What a Clinic or Dental Practice Website Actually Needs" class="blogs_card w-inline-block" data-card="blogs" href="blog/clinic-dental-website-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-clinic-dental-website-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-clinic-dental-website-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2282,7 +2475,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Website Backups: What to Back Up, How Often, and How to Test a Restore" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-backup-guide-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-backup-guide-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-backup-guide-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2295,7 +2488,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="How to Move Your Website to a New Host Without Downtime" class="blogs_card w-inline-block" data-card="blogs" href="blog/migrate-website-without-downtime.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-migrate-website-without-downtime.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-migrate-website-without-downtime.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2308,7 +2501,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Your Web Designer Has Disappeared. What Do You Do Now?" class="blogs_card w-inline-block" data-card="blogs" href="blog/web-designer-disappeared.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-web-designer-disappeared.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-web-designer-disappeared.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2321,7 +2514,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="domains" role="listitem"><a aria-label=".my vs .com: Which Domain Should a Malaysian Business Register?" class="blogs_card w-inline-block" data-card="blogs" href="blog/my-vs-com-domain-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-my-vs-com-domain-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-my-vs-com-domain-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Domains</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2334,7 +2527,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Shared Hosting vs VPS: When a Growing Business Should Move Up" class="blogs_card w-inline-block" data-card="blogs" href="blog/shared-hosting-vs-vps.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-shared-hosting-vs-vps.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-shared-hosting-vs-vps.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2347,7 +2540,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="What a Restaurant or Café Website Actually Needs in Malaysia" class="blogs_card w-inline-block" data-card="blogs" href="blog/restaurant-cafe-website-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-restaurant-cafe-website-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-restaurant-cafe-website-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2360,7 +2553,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Who Actually Owns Your Website? Domain, Hosting and Files" class="blogs_card w-inline-block" data-card="blogs" href="blog/who-owns-your-website.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-who-owns-your-website.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-who-owns-your-website.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2373,7 +2566,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Nine Signs Your Website Is Quietly Costing You Customers" class="blogs_card w-inline-block" data-card="blogs" href="blog/signs-website-costing-customers.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-signs-website-costing-customers.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-signs-website-costing-customers.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2386,7 +2579,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="12 Questions to Ask Before You Hire a Web Design Company" class="blogs_card w-inline-block" data-card="blogs" href="blog/questions-to-ask-web-design-company.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-questions-to-ask-web-design-company.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-questions-to-ask-web-design-company.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2399,7 +2592,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Website Builder vs Hiring a Web Designer: Which Is Right for Your Business?" class="blogs_card w-inline-block" data-card="blogs" href="blog/website-builder-vs-web-designer.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-website-builder-vs-web-designer.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-website-builder-vs-web-designer.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2412,7 +2605,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="web-design" role="listitem"><a aria-label="Why Your Company Needs a Business Website, Even If You're Already on Social Media" class="blogs_card w-inline-block" data-card="blogs" href="blog/why-your-business-needs-a-website.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-why-your-business-needs-a-website.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-why-your-business-needs-a-website.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Web Design</span> · <time datetime="2026-09-07">7 September 2026</time></p>
@@ -2425,7 +2618,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="Why Is Your WordPress Site Slow, and What Actually Fixes It?" class="blogs_card w-inline-block" data-card="blogs" href="blog/wordpress-site-speed-malaysia.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-wordpress-site-speed-malaysia.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-wordpress-site-speed-malaysia.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-06">6 September 2026</time></p>
@@ -2438,7 +2631,7 @@
                                             <div class="hero_blogs_collection-item" data-blog-item="" data-topic="hosting" role="listitem"><a aria-label="How to Choose the Best Web Hosting in Malaysia for Your Business (2026 Guide)" class="blogs_card w-inline-block" data-card="blogs" href="blog/best-web-hosting-malaysia-2026-guide.html">
                                                     <div class="blogs_card-overlay" data-card="overlay"></div>
                                                     <div class="blogs_card-inner is-blogs">
-                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" loading="lazy" src="images/blog-best-web-hosting-malaysia-2026-guide.webp" /></div>
+                                                        <div class="blogs_card_img-wrap is-blogs"><img alt="" data-card="img" height="604" loading="lazy" src="images/blog-best-web-hosting-malaysia-2026-guide.webp" width="504" /></div>
                                                         <div class="blogs_card_content is-blogs">
                                                             <div class="blogs_card_content-top">
                                                                 <p><span class="gk-topic">Hosting</span> · <time datetime="2026-09-06">6 September 2026</time></p>
@@ -2491,7 +2684,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="footer_img-wrap"><img alt="" loading="lazy" src="images/gotka-footer-v2.webp" />
+                                <div class="footer_img-wrap"><img alt="" height="468" loading="lazy" src="images/gotka-footer-v2.webp" width="708" />
                                     <div class="footer_img-overlay"></div>
                                 </div>
                             </div>
@@ -2937,12 +3130,16 @@
             const dialog = document.getElementById('lead-lb');
             if (!dialog || typeof dialog.showModal !== 'function') return;
 
+            // with a mouse the first field is ready to type in; on a touch screen that would bring the keyboard up over
+            // half of the form before it has been seen, so there the dialog opens as it is
+            const typing = window.matchMedia('(hover: hover) and (pointer: fine)');
+
             document.addEventListener('click', event => {
                 if (event.target.closest('[data-lb-open]')) {
                     event.preventDefault();
                     dialog.showModal();
                     const field = dialog.querySelector('input:not([tabindex="-1"]), textarea');
-                    if (field) field.focus();
+                    if (field && typing.matches) field.focus();
                 } else if (event.target.closest('[data-lb-close]') || event.target === dialog) {
                     dialog.close();
                 }
@@ -2956,6 +3153,45 @@
             }));
         })();
         /* ── END: ENQUIRY DIALOG ── */
+
+        /* ── START: FLOATING BUTTONS ── */
+        // — On phones and tablets the WhatsApp and "Message us" buttons float over the page's right-hand edge.
+        //   They step aside (the stylesheet fades .gk-fab.is-away out on narrow and touch screens) while:
+        //   · an enquiry form in the page, or the send buttons of a summary card, are on screen: the page's own
+        //     buttons run to the edge of the screen there
+        //   · something is being typed into any field: the keyboard leaves little of the screen as it is
+        // — They come back when those have scrolled away and the field is left
+        (() => {
+            const buttons = document.querySelector('.gk-fab');
+            if (!buttons) return;
+
+            const forms = new Set();
+            let typing = false;
+            const update = () => buttons.classList.toggle('is-away', typing || forms.size > 0);
+            const isField = target => !!target && target.matches('textarea, select, input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="button"]):not([type="submit"])');
+
+            document.addEventListener('focusin', event => {
+                typing = isField(event.target);
+                update();
+            });
+            document.addEventListener('focusout', () => {
+                typing = false;
+                update();
+            });
+
+            if (!('IntersectionObserver' in window)) return;
+            const watcher = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) forms.add(entry.target);
+                    else forms.delete(entry.target);
+                });
+                update();
+            });
+            document.querySelectorAll('[data-gotech-lead-form], .gk-sum_actions').forEach(part => {
+                if (!part.closest('dialog')) watcher.observe(part);
+            });
+        })();
+        /* ── END: FLOATING BUTTONS ── */
 
         /* ── START: ENQUIRY FORM FALLBACK ── */
         // — The enquiry form is drawn by crm.gotka.com into every [data-gotech-lead-form]

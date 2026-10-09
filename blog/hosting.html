@@ -1518,16 +1518,34 @@
         /* tablets and phones: the panel folds open inside the menu, under its button */
         @media screen and (max-width: 991px) {
 
+            /* compact rows: 18px links with 14px above and below each and the template's dashed line between them.
+               The template's 22px links, with 32px under each and 32px between rows, made every row about 100px tall */
+            .nav_menu-list {
+                row-gap: 0;
+            }
+
+            .nav_menu-link {
+                padding-top: 0.875rem;
+                padding-bottom: 0.875rem;
+                font-size: 1.125rem;
+                line-height: 1.4;
+            }
+
+            /* the current page's icon in the middle of its row (the template places it for its own taller rows) */
+            .nav_menu-link.w--current {
+                background-position: 0 50%;
+            }
+
             /* the dashed line the template draws under each link goes under the whole item, panel included */
             .gk-nav-item {
-                padding-bottom: var(--base--s-32);
                 border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
             }
 
+            /* (the padding is repeated here: the template's rule for its last link, Blog, would take it away) */
             .nav_menu-link.gk-nav-toggle {
                 justify-content: space-between;
                 width: 100%;
-                padding-bottom: 0;
+                padding-bottom: 0.875rem;
                 border-bottom-style: none;
                 text-align: left;
             }
@@ -1539,7 +1557,6 @@
 
             /* Contact is the last row now (the template leaves the line off its own last link, Blog) */
             .nav_menu-link.is-contact {
-                padding-bottom: 0;
                 border-bottom-style: none;
             }
 
@@ -1561,8 +1578,8 @@
                 overflow: hidden;
             }
 
-            .gk-nav-drop_list:first-child {
-                padding-top: 0.75rem;
+            .gk-nav-drop_list:last-child {
+                padding-bottom: 0.625rem;
             }
 
             .gk-nav-drop_icon,
@@ -1648,7 +1665,9 @@
             .nav_menu_flex-wrap {
                 max-height: calc(100vh - 8rem);
                 max-height: calc(100dvh - 8rem);
-                row-gap: 2rem;
+                padding-top: 0.75rem;
+                padding-bottom: 1rem;
+                row-gap: 0.75rem;
                 overscroll-behavior: contain;
             }
 
@@ -1659,47 +1678,18 @@
             }
         }
 
-        /* on a short screen the links sit closer together, so the whole menu is in view at once */
-        @media screen and (max-width: 991px) and (max-height: 740px) {
-            .nav_menu_flex-wrap {
-                padding-top: 1.75rem;
-                row-gap: 1.5rem;
-            }
-
-            .nav_menu-list {
-                row-gap: 1.25rem;
-            }
-
-            .nav_menu-link,
-            .gk-nav-item {
-                padding-bottom: 1.25rem;
-            }
-
-            .nav_menu-link.is-contact,
-            .nav_menu-link.gk-nav-toggle {
-                padding-bottom: 0;
-            }
-        }
-
+        /* on a very short screen (a phone held sideways) the rows close up a little more, so the whole menu is in view */
         @media screen and (max-width: 991px) and (max-height: 600px) {
             .nav_menu_flex-wrap {
-                padding-top: 1.25rem;
-                padding-bottom: 1.25rem;
-                row-gap: 1rem;
-            }
-
-            .nav_menu-list {
-                row-gap: 0.75rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.75rem;
+                row-gap: 0.5rem;
             }
 
             .nav_menu-link,
-            .gk-nav-item {
-                padding-bottom: 0.75rem;
-            }
-
-            .nav_menu-link.is-contact,
             .nav_menu-link.gk-nav-toggle {
-                padding-bottom: 0;
+                padding-top: 0.625rem;
+                padding-bottom: 0.625rem;
             }
         }
 

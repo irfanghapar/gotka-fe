@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100" width="500" height="100" role="img" aria-label="Gotka Technologies logo">
+<g transform="translate(0 0)" fill="none" stroke="#0F1D2A" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+<path transform="translate(0 0)" d="M68 12 L32 12 Q12 12 12 32 L12 68 Q12 88 32 88 L48 88 Q68 88 68 68 L68 52 L42 52"/>
+<path transform="translate(96 0)" d="M32 12 L48 12 Q68 12 68 32 L68 68 Q68 88 48 88 L32 88 Q12 88 12 68 L12 32 Q12 12 32 12 Z"/>
+<path transform="translate(192 0)" d="M12 12 L68 12 M40 12 L40 88"/>
+<path transform="translate(288 0)" d="M16 12 L16 88 M64 12 L16 60 M34 44 L66 88"/>
+<path transform="translate(384 0)" d="M12 88 L12 48 Q12 12 40 12 Q68 12 68 48 L68 88 M12 60 L68 60"/>
+</g><circle cx="486" cy="14" r="10" fill="#2EC27E"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Gotka Technologies logo">
+<g transform="translate(0 0) scale(1.0)">
+<rect width="120" height="120" rx="28" fill="#0E1B28"/>
+<g transform="translate(28 29.0) scale(0.62)">
+  <path d="M68 12 L32 12 Q12 12 12 32 L12 68 Q12 88 32 88 L48 88 Q68 88 68 68 L68 52 L42 52" fill="none" stroke="#FFFFFF" stroke-width="24"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<circle cx="92" cy="28" r="8" fill="#2EC27E"/>
+</g>
+</svg>

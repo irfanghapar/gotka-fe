@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Ink",
+    "hex": "#0F1D2A",
+    "rgb": [
+      15,
+      29,
+      42
+    ],
+    "cmyk_ref": [
+      64,
+      31,
+      0,
+      84
+    ],
+    "usage": "Primary text \u00b7 dark surfaces"
+  },
+  {
+    "name": "Rack",
+    "hex": "#0E1B28",
+    "rgb": [
+      14,
+      27,
+      40
+    ],
+    "cmyk_ref": [
+      65,
+      33,
+      0,
+      84
+    ],
+    "usage": "Badge faceplate \u00b7 footer \u00b7 dark panels"
+  },
+  {
+    "name": "Petrol",
+    "hex": "#0D5C63",
+    "rgb": [
+      13,
+      92,
+      99
+    ],
+    "cmyk_ref": [
+      87,
+      7,
+      0,
+      61
+    ],
+    "usage": "Primary brand colour \u00b7 links \u00b7 accents"
+  },
+  {
+    "name": "Petrol Ink",
+    "hex": "#083A3F",
+    "rgb": [
+      8,
+      58,
+      63
+    ],
+    "cmyk_ref": [
+      87,
+      8,
+      0,
+      75
+    ],
+    "usage": "Deep teal \u00b7 ticker \u00b7 highlighted plan"
+  },
+  {
+    "name": "Status Green",
+    "hex": "#2EC27E",
+    "rgb": [
+      46,
+      194,
+      126
+    ],
+    "cmyk_ref": [
+      76,
+      0,
+      35,
+      24
+    ],
+    "usage": "The LED \u00b7 CTAs \u00b7 live indicators"
+  },
+  {
+    "name": "Amber",
+    "hex": "#F0A63C",
+    "rgb": [
+      240,
+      166,
+      60
+    ],
+    "cmyk_ref": [
+      0,
+      31,
+      75,
+      6
+    ],
+    "usage": "Warning accents \u00b7 blinking rack LED"
+  },
+  {
+    "name": "Mist",
+    "hex": "#F1F4F2",
+    "rgb": [
+      241,
+      244,
+      242
+    ],
+    "cmyk_ref": [
+      1,
+      0,
+      1,
+      4
+    ],
+    "usage": "Paper background \u00b7 reverse wordmark"
+  }
+]

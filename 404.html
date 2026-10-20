@@ -128,7 +128,7 @@
             border-radius: 50%;
             object-fit: cover;
             background: #fff;
-            box-shadow: 0 0 0 1px rgba(1, 16, 50, 0.1);
+            box-shadow: 0 0 0 1px rgba(15, 29, 42, 0.1);
         }
 
         .hero_marquee-item-name {
@@ -330,7 +330,7 @@
         .gk-assure a {
             color: inherit;
             text-decoration: underline;
-            text-decoration-color: rgba(1, 16, 50, 0.25);
+            text-decoration-color: rgba(15, 29, 42, 0.25);
             text-underline-offset: 3px;
         }
 
@@ -395,7 +395,7 @@
         .gk-links a {
             color: var(--_colors---base--dark-blue-400);
             text-decoration: underline;
-            text-decoration-color: rgba(1, 16, 50, 0.25);
+            text-decoration-color: rgba(15, 29, 42, 0.25);
             text-underline-offset: 3px;
         }
 
@@ -606,7 +606,7 @@
             padding: 2rem;
             border-radius: var(--border-radius--xxlarge);
             background-color: rgba(255, 255, 255, 0.62);
-            box-shadow: 0 0 0 1px rgba(1, 16, 50, 0.06), 0 30px 60px -44px rgba(1, 16, 50, 0.45);
+            box-shadow: 0 0 0 1px rgba(15, 29, 42, 0.06), 0 30px 60px -44px rgba(15, 29, 42, 0.45);
             -webkit-backdrop-filter: blur(24px);
             backdrop-filter: blur(24px);
         }
@@ -697,7 +697,7 @@
         .gk-prose a {
             color: var(--_colors---base--dark-blue-400);
             text-decoration: underline;
-            text-decoration-color: rgba(1, 16, 50, 0.25);
+            text-decoration-color: rgba(15, 29, 42, 0.25);
             text-underline-offset: 3px;
         }
 
@@ -828,13 +828,13 @@
         }
 
         .gk-opt:hover {
-            border-color: rgba(1, 16, 50, 0.22);
+            border-color: rgba(15, 29, 42, 0.22);
         }
 
         .gk-opt.is-on {
             border-color: var(--_colors---base--blue-100);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(5, 82, 252, 0.12);
+            box-shadow: 0 0 0 3px rgba(13, 92, 99, 0.12);
         }
 
         .gk-opt.is-static {
@@ -861,7 +861,7 @@
             width: 1.375rem;
             height: 1.375rem;
             margin-top: 0.125rem;
-            border: 1.5px solid rgba(1, 16, 50, 0.3);
+            border: 1.5px solid rgba(15, 29, 42, 0.3);
             border-radius: var(--border-radius--small);
             background-color: #fff;
             transition: border-color 0.2s, background-color 0.2s;
@@ -975,7 +975,7 @@
             padding: 1.5rem;
             border-radius: var(--border-radius--xxlarge);
             background-color: #fff;
-            box-shadow: 0 0 0 1px rgba(1, 16, 50, 0.06), 0 30px 60px -40px rgba(1, 16, 50, 0.5);
+            box-shadow: 0 0 0 1px rgba(15, 29, 42, 0.06), 0 30px 60px -40px rgba(15, 29, 42, 0.5);
         }
 
         .gk-sum h3 {
@@ -996,7 +996,7 @@
             justify-content: space-between;
             gap: 1rem;
             padding: 0.625rem 0;
-            border-bottom: 1px dashed rgba(1, 16, 50, 0.16);
+            border-bottom: 1px dashed rgba(15, 29, 42, 0.16);
             color: var(--_colors---base--dark-blue-400);
         }
 
@@ -1078,7 +1078,7 @@
             gap: 0.625rem;
             height: 3.3125rem;
             padding: 0 1.125rem;
-            border: 1px solid rgba(1, 16, 50, 0.16);
+            border: 1px solid rgba(15, 29, 42, 0.16);
             border-radius: var(--border-radius--xlarge);
             color: var(--_colors---base--dark-blue-400);
             font-size: 1rem;
@@ -1184,7 +1184,7 @@
 
         .gk-way:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 0 1px rgba(5, 82, 252, 0.25), 0 24px 44px -28px rgba(1, 16, 50, 0.45);
+            box-shadow: 0 0 0 1px rgba(13, 92, 99, 0.25), 0 24px 44px -28px rgba(15, 29, 42, 0.45);
         }
 
         .gk-way:focus-visible {
@@ -1205,7 +1205,7 @@
     <meta content="630" property="og:image:height" />
     <meta content="en_MY" property="og:locale" />
     <meta content="https://gotka.com/assets/og-image.png" name="twitter:image" />
-    <meta content="#eaf0f3" name="theme-color" />
+    <meta content="#ffffff" name="theme-color" />
     <link href="https://gotka.com/blog/feed.xml" rel="alternate" title="Gotka Technologies Blog" type="application/rss+xml" />
     <link href="https://crm.gotka.com" rel="preconnect" />
     <script>
@@ -1242,7 +1242,7 @@
     <style>
         /* the site's own pictures carry their width and height, so a page keeps their place while they load; the height
            stays automatic wherever a rule of the template or of a page does not set it (this one has no weight) */
-        :where(img[src^="images/"][width][height], img[src^="../images/"][width][height]) {
+        :where(img[src^="images/"][width][height], img[src^="../images/"][width][height], img[src^="../../images/"][width][height]) {
             height: auto;
         }
 
@@ -1273,7 +1273,7 @@
             font-weight: 600;
             line-height: 1;
             text-decoration: none;
-            box-shadow: 0 14px 30px -12px rgba(1, 16, 50, 0.55);
+            box-shadow: 0 14px 30px -12px rgba(15, 29, 42, 0.55);
             transition: transform 0.2s;
         }
 
@@ -1670,7 +1670,7 @@
 
         /* Contact is not in the template's menu: its "current page" icon is drawn in the style of the template's four */
         .nav_menu-link.is-contact.w--current {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4.6 2.5h6.8c1.47 0 2.52.72 2.93 1.93L8.92 8.3c-.55.4-1.29.4-1.84 0L1.67 4.43C2.08 3.22 3.13 2.5 4.6 2.5Z' fill='url(%23a)'/%3E%3Cpath d='M1.5 5.98l4.84 3.5c.99.72 2.33.72 3.32 0l4.84-3.5v4.42c0 1.9-1.2 3.1-3.1 3.1H4.6c-1.9 0-3.1-1.2-3.1-3.1V5.98Z' fill='url(%23a)'/%3E%3Cdefs%3E%3ClinearGradient id='a' x1='8' y1='2.5' x2='8' y2='13.5' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%2351A2FF'/%3E%3Cstop offset='1' stop-color='%230552FC'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4.6 2.5h6.8c1.47 0 2.52.72 2.93 1.93L8.92 8.3c-.55.4-1.29.4-1.84 0L1.67 4.43C2.08 3.22 3.13 2.5 4.6 2.5Z' fill='url(%23a)'/%3E%3Cpath d='M1.5 5.98l4.84 3.5c.99.72 2.33.72 3.32 0l4.84-3.5v4.42c0 1.9-1.2 3.1-3.1 3.1H4.6c-1.9 0-3.1-1.2-3.1-3.1V5.98Z' fill='url(%23a)'/%3E%3Cdefs%3E%3ClinearGradient id='a' x1='8' y1='2.5' x2='8' y2='13.5' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%232A8F8C'/%3E%3Cstop offset='1' stop-color='%230D5C63'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E");
         }
 
         /* desktop: the panel is a card that drops under the bar */
@@ -1717,7 +1717,7 @@
                 border: 1px solid var(--_colors---base--black-muted-06);
                 border-radius: var(--border-radius--xlarge);
                 background-color: var(--_colors---base--white-200);
-                box-shadow: 0 1.5rem 3rem -1rem rgba(3, 31, 97, 0.25), 0 0.5rem 0.75rem rgba(3, 31, 97, 0.05);
+                box-shadow: 0 1.5rem 3rem -1rem rgba(15, 29, 42, 0.25), 0 0.5rem 0.75rem rgba(15, 29, 42, 0.05);
             }
 
             .gk-nav-drop.is-services .gk-nav-drop_list {
@@ -1730,11 +1730,11 @@
 
             .gk-nav-drop_link:hover,
             .gk-nav-drop_sub:hover {
-                background-color: rgba(1, 16, 50, 0.05);
+                background-color: rgba(15, 29, 42, 0.05);
             }
 
             .gk-nav-drop_link.w--current {
-                background-color: rgba(5, 82, 252, 0.07);
+                background-color: rgba(13, 92, 99, 0.07);
             }
         }
 
@@ -2005,7 +2005,7 @@
         }
 
         .gk-lb::backdrop {
-            background: rgba(1, 16, 50, 0.6);
+            background: rgba(15, 29, 42, 0.6);
             -webkit-backdrop-filter: blur(3px);
             backdrop-filter: blur(3px);
         }
@@ -2017,8 +2017,8 @@
             overflow: auto;
             padding: 2rem 1.75rem 1.75rem;
             border-radius: 1.25rem;
-            background-color: #eaf0f3;
-            box-shadow: 0 40px 90px -30px rgba(1, 16, 50, 0.7);
+            background-color: #f1f4f2;
+            box-shadow: 0 40px 90px -30px rgba(15, 29, 42, 0.7);
         }
 
         .gk-lb_close {
@@ -2032,7 +2032,7 @@
             padding: 0;
             border: 0;
             border-radius: 0.625rem;
-            background-color: rgba(1, 16, 50, 0.08);
+            background-color: rgba(15, 29, 42, 0.08);
             color: var(--_colors---base--dark-blue-400);
             font-size: 1.5rem;
             line-height: 1;
@@ -2040,7 +2040,7 @@
         }
 
         .gk-lb_close:hover {
-            background-color: rgba(1, 16, 50, 0.14);
+            background-color: rgba(15, 29, 42, 0.14);
         }
 
         .gk-lb_head {
@@ -2127,7 +2127,7 @@
         [data-gotech-lead-form] textarea:focus {
             border-color: var(--_colors---base--blue-100);
             outline: 0;
-            box-shadow: 0 0 0 3px rgba(5, 82, 252, 0.14);
+            box-shadow: 0 0 0 3px rgba(13, 92, 99, 0.16);
         }
 
         [data-gotech-lead-form] .glf-hint {
@@ -2153,14 +2153,20 @@
             padding: 0 1.25rem;
             border: 0;
             border-radius: 0.875rem;
-            background-color: #0552fc;
-            background-image: radial-gradient(circle at 200% 10%, #51a2ff, #0552fc);
-            color: #fff;
+            background-color: #2ec27e;
+            background-image: radial-gradient(circle at 150% 0%, #8ae6b8, #2ec27e);
+            color: #0b2b1d;
             font-family: inherit;
             font-size: 1rem;
-            font-weight: 500;
-            box-shadow: 0 6px 14px rgba(19, 85, 255, 0.4);
+            font-weight: 600;
+            box-shadow: 0 6px 14px rgba(46, 194, 126, 0.35);
             cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        [data-gotech-lead-form] button[type="submit"]:hover {
+            background-color: #3bd48d;
+            background-image: none;
         }
 
         [data-gotech-lead-form] .glf-langs {
@@ -2172,7 +2178,7 @@
             padding: 0.375rem 0.625rem;
             border: 0;
             border-radius: 0.5rem;
-            background-color: rgba(1, 16, 50, 0.08);
+            background-color: rgba(15, 29, 42, 0.08);
             color: var(--_colors---base--dark-blue-400);
             font-family: inherit;
             font-size: 0.8125rem;
@@ -2255,6 +2261,302 @@
             width: 1.25rem;
             height: 1.25rem;
         }
+
+        /* ---------- brand colours ---------- */
+        /* Gotka's own colours, as on gotka.com, in place of the template's blues: green (#2EC27E) for the main buttons, with
+           dark green text (#0B2B1D); petrol (#0D5C63) for links, icons and accents; ink (#0F1D2A) for headings and the dark
+           sections; a pale green-grey (#F1F4F2) for the page. The template's colours keep their names ("blue-100",
+           "dark-blue-400"); only what they hold changes, so every rule of the template that uses them follows */
+        :root {
+            --_colors---base--grey-100: #f1f4f2;
+            --_colors---base--grey-500: #41566a;
+            --_colors---base--dark-blue-400: #0f1d2a;
+            --_colors---base--dark-blue-100: #22394a;
+            --_colors---base--dark-blue-200: #142430;
+            --_colors---base--dark-blue-300: #13222e;
+            --_colors---base--dark-blue-500: #0e1b28;
+            --_colors---base--dark-blue-600: #0b151f;
+            --_colors---base--blue-100: #0d5c63;
+            --_colors---base--blue-200: #0b5157;
+            --_colors---base--blue-300: #083a3f;
+            --_colors---base--blue-muted: rgba(13, 92, 99, 0.35);
+            --_colors---base--light-blue-100: #dcebe8;
+            --_colors---base--light-blue-200: #2ec27e;
+            --_colors---base--light-blue-300: #2a8f8c;
+            --_colors---base--light-blue-400: #0d5c63;
+            --_colors---base--black-muted-08: rgba(15, 29, 42, 0.08);
+            --_colors---base--green: #2ec27e;
+        }
+
+        /* the main buttons, and "Get started" in the menu: green with dark green text. The template's dark button (its
+           "secondary" variant) stays dark everywhere else */
+        .btn:not(.w-variant-677c3e37-bee7-e97d-75db-7421b3a72015),
+        .nav .btn,
+        .button_secondary.is-light-blue,
+        .button_secondary.is-nav {
+            border-bottom-color: #1f9a61;
+            background-color: #2ec27e;
+            background-image: radial-gradient(circle farthest-corner at 150% 0%, #8ae6b8, #2ec27e);
+            box-shadow: 0 8px 12px 0 rgba(46, 194, 126, 0.3);
+            color: #0b2b1d;
+        }
+
+        .button_secondary.is-light-blue:hover {
+            border-bottom-color: var(--_colors---base--blue-300);
+            background-color: var(--_colors---base--blue-100);
+            background-image: none;
+            color: #fff;
+        }
+
+        .button_secondary.is-nav:hover {
+            border-bottom-color: #1f9a61;
+            background-color: #3bd48d;
+            background-image: none;
+            color: #0b2b1d;
+        }
+
+        /* the homepage heading's icon tile: green into petrol (the template's runs from sky blue) */
+        .h1-icon_layer {
+            background-image: linear-gradient(90deg, #2ec27e, var(--_colors---base--blue-100));
+        }
+
+        /* the soft gradient behind every page is a pale blue picture: tinted green-grey, towards gotka.com's page colour.
+           The wrap's own pale colour is what the tint falls on until the picture has loaded */
+        .gradient-wrap {
+            background-color: #e9eff1;
+        }
+
+        .gradient-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background-color: #2ec27e;
+            opacity: 0.7;
+            mix-blend-mode: hue;
+            pointer-events: none;
+        }
+
+        /* the menu's current-page icons and the article list bullets, in the brand's petrol (gotka-fe/assets/tpl) */
+        .nav_menu-link.w--current {
+            background-image: url("assets/tpl/home.svg");
+        }
+
+        .nav_menu-link.is-about.w--current {
+            background-image: url("assets/tpl/energy-ellipse.svg");
+        }
+
+        .nav_menu-link.is-features.w--current {
+            background-image: url("assets/tpl/blocks.svg");
+        }
+
+        .nav_menu-link.is-blogs.w--current {
+            background-image: url("assets/tpl/stacks.svg");
+        }
+
+        .nav_menu-link.is-pricing.w--current {
+            background-image: url("assets/tpl/dollar-circle.svg");
+        }
+
+        .blogs_richtext li {
+            background-image: url("assets/tpl/list-bullet-dot-ring.svg");
+        }
+
+        /* ---------- header ---------- */
+        /* a white bar across the full width of the screen, there from the start, with a hairline under it as on gotka.com.
+           The template's header is a floating box that turns white only once the page scrolls (and never on a tablet or
+           phone, where the page showed through it), and its scroll animation narrows the box to 67rem */
+        .nav {
+            padding-top: 0.625rem;
+            padding-bottom: 0.625rem;
+            border-bottom: 1px solid #dce3df;
+            background-color: #fff;
+        }
+
+        .nav .container-large.is-nav {
+            width: 100% !important;
+            max-width: 80rem;
+        }
+
+        .nav_wrap {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .nav_wrap-overlay {
+            display: none;
+        }
+
+        @media screen and (max-width: 767px) {
+            .nav {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        /* ---------- FAQ ---------- */
+        /* compact rows: questions at 18px (the template's are 26px), 16px between rows and a smaller toggle, so a list
+           takes about half the height. A question is in the body text's colour until it is opened */
+        .faqs_list {
+            row-gap: 1rem;
+        }
+
+        .faqs_wrap {
+            padding-bottom: 1rem;
+        }
+
+        .faqs_header {
+            column-gap: 1.25rem;
+        }
+
+        .faqs_title {
+            color: var(--_colors---base--grey-500);
+            font-size: 1.125rem;
+            line-height: 1.4;
+        }
+
+        .faqs_header-toggle {
+            width: 2.25rem;
+            height: 2.25rem;
+        }
+
+        .faqs_toggle-icon-wrap {
+            width: 0.75rem;
+            height: 0.75rem;
+        }
+
+        .faqs_desc {
+            padding-top: 0.75rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .faqs_border {
+            background-color: rgba(15, 29, 42, 0.12);
+        }
+
+        @media screen and (max-width: 767px) {
+            .faqs_list {
+                row-gap: 0.75rem;
+            }
+
+            .faqs_wrap {
+                padding-bottom: 0.75rem;
+            }
+
+            .faqs_title {
+                font-size: 1rem;
+            }
+
+            .faqs_header-toggle {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
+        /* ---------- enquiry card ---------- */
+        /* what to expect at the top, centred, and the form under it, as on gotka.com (the template puts them side by side).
+           In a section of its own, a picker's summary of what is attached to the message sits beside the form on a
+           desktop, as on gotka.com's quote page (in the narrower Get started flow it stays above the form) */
+        .gk-lead .hero_contact_form-card-content {
+            flex-direction: column;
+            align-items: center;
+            row-gap: 2rem;
+        }
+
+        .gk-lead .hero_contact_card-left {
+            align-items: center;
+            row-gap: 1.25rem;
+            max-width: 46rem;
+            padding-bottom: 0;
+            text-align: center;
+        }
+
+        .gk-lead .hero_contact_card-left-content {
+            align-items: center;
+            row-gap: 1.5rem;
+        }
+
+        .gk-lead .hero_contact_form-card-header {
+            align-items: center;
+            row-gap: 0.875rem;
+        }
+
+        .gk-lead .hero_contact_card-tags-wrap {
+            justify-content: center;
+        }
+
+        .gk-lead .hero_contact_form-wrap {
+            flex: none;
+            width: 100%;
+            max-width: 45rem;
+        }
+
+        @media screen and (min-width: 992px) {
+            .section_enquiry .gk-lead .hero_contact_form-wrap.is-attach {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+                align-items: start;
+                gap: 1.5rem;
+                max-width: none;
+            }
+
+            .section_enquiry .gk-lead .hero_contact_form-wrap.is-attach .gk-attach {
+                margin-bottom: 0;
+            }
+        }
+
+        /* ---------- footer ---------- */
+        /* the logo, a line on what Gotka does, the contact lines and the Facebook and LinkedIn pages, together at the top of
+           the column (the template spreads the column over the height of the link lists, which left a gap under the logo) */
+        .footer_middle-left {
+            justify-content: flex-start;
+            row-gap: 1.5rem;
+        }
+
+        .gk-foot-about {
+            max-width: 22rem;
+            margin: 0;
+            font-size: 0.9375rem;
+            line-height: 1.55;
+        }
+
+        .gk-foot-social {
+            display: flex;
+            column-gap: 0.5rem;
+        }
+
+        .gk-foot-social a {
+            display: grid;
+            place-items: center;
+            width: 2.375rem;
+            height: 2.375rem;
+            border: 1px solid rgba(15, 29, 42, 0.14);
+            border-radius: 0.625rem;
+            color: var(--_colors---base--dark-blue-400);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .gk-foot-social a:hover {
+            border-color: var(--_colors---base--blue-100);
+            color: var(--_colors---base--blue-100);
+        }
+
+        .gk-foot-social svg {
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+
+        @media screen and (min-width: 992px) {
+            .footer_middle-left {
+                max-width: 22rem;
+            }
+        }
+
+        /* the picture beside the footer's heading is drawn in the brand's colours, so the template's blue tint over it goes */
+        .footer_img-overlay {
+            display: none;
+        }
     </style>
 </head>
 
@@ -2264,13 +2566,13 @@
             <div class="padding-global">
                 <div class="container-large is-nav">
                     <div class="nav_wrap">
-                        <div class="nav_wrap-overlay"></div><a class="logo_link w-inline-block" data-wf--logo--variant="primary" href="index.html"><img alt="Gotka Technologies" class="logo_img" height="152" loading="eager" src="assets/logo-horizontal.svg" width="624" /></a>
+                        <div class="nav_wrap-overlay"></div><a class="logo_link w-inline-block" data-wf--logo--variant="primary" href="./"><img alt="Gotka Technologies" class="logo_img" height="152" loading="eager" src="assets/logo-horizontal.svg" width="624" /></a>
                         <div class="nav_menu-wrap">
                             <div class="nav_menu-contain">
                                 <div class="nav_menu_flex-wrap">
                                     <nav class="nav_menu">
                                         <ul class="nav_menu-list" role="list">
-                                            <li class="nav_menu-item"><a class="nav_menu-link w-inline-block" href="index.html">
+                                            <li class="nav_menu-item"><a class="nav_menu-link w-inline-block" href="./">
                                                     <p>Home</p>
                                                 </a></li>
                                             <li class="nav_menu-item gk-nav-item"><button aria-controls="nav-services" aria-expanded="false" class="nav_menu-link is-features gk-nav-toggle" type="button"><span>Services</span><svg aria-hidden="true" class="gk-nav-caret" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -2279,35 +2581,35 @@
                                                 <div class="gk-nav-drop is-services" id="nav-services">
                                                     <div class="gk-nav-drop_inner">
                                                         <ul class="gk-nav-drop_list" role="list">
-                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="web-design.html"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="web-design/"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                                             <path d="M4 20l1.2-5L16.6 3.6a2 2 0 0 1 2.8 0l1 1a2 2 0 0 1 0 2.8L9 18.8z"></path>
                                                                             <path d="M14.5 5.8l3.7 3.7"></path>
                                                                         </svg></span><span class="gk-nav-drop_text"><span class="gk-nav-drop_title">Web Design</span><span class="gk-nav-drop_desc">Websites built around your brand</span></span></a>
                                                                 <ul class="gk-nav-drop_subs" role="list">
-                                                                    <li><a class="gk-nav-drop_sub" href="web-design/quote.html">Packages &amp; Pricing</a></li>
-                                                                    <li><a class="gk-nav-drop_sub" href="web-design/care.html">Care &amp; Maintenance</a></li>
-                                                                    <li><a class="gk-nav-drop_sub" href="web-design/seo-content.html">SEO Content Writing</a></li>
+                                                                    <li><a class="gk-nav-drop_sub" href="web-design/quote/">Packages &amp; Pricing</a></li>
+                                                                    <li><a class="gk-nav-drop_sub" href="web-design/care/">Care &amp; Maintenance</a></li>
+                                                                    <li><a class="gk-nav-drop_sub" href="web-design/seo-content/">SEO Content Writing</a></li>
                                                                 </ul>
                                                             </li>
-                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="hosting.html"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="hosting/"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                                             <rect height="7" rx="2" width="16" x="4" y="4"></rect>
                                                                             <rect height="7" rx="2" width="16" x="4" y="13"></rect>
                                                                             <path d="M8 7.5h.01M8 16.5h.01M12 7.5h5M12 16.5h5"></path>
                                                                         </svg></span><span class="gk-nav-drop_text"><span class="gk-nav-drop_title">Cloud Hosting</span><span class="gk-nav-drop_desc">AI-powered cPanel on LiteSpeed</span></span></a></li>
                                                         </ul>
                                                         <ul class="gk-nav-drop_list" role="list">
-                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="domains.html"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="domains/"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                                             <circle cx="12" cy="12" r="8.5"></circle>
                                                                             <path d="M3.5 12h17M12 3.5c2.6 2.6 2.6 14.4 0 17M12 3.5c-2.6 2.6-2.6 14.4 0 17"></path>
                                                                         </svg></span><span class="gk-nav-drop_text"><span class="gk-nav-drop_title">Domains</span><span class="gk-nav-drop_desc">Register or transfer a domain</span></span></a>
                                                                 <ul class="gk-nav-drop_subs" role="list">
-                                                                    <li><a class="gk-nav-drop_sub" href="domain-ideas.html">AI Domain Ideas</a></li>
+                                                                    <li><a class="gk-nav-drop_sub" href="domain-ideas/">AI Domain Ideas</a></li>
                                                                 </ul>
                                                             </li>
-                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="app-development.html"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="app-development/"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                                             <path d="M8.5 7.5 4 12l4.5 4.5M15.5 7.5 20 12l-4.5 4.5M13.5 5l-3 14"></path>
                                                                         </svg></span><span class="gk-nav-drop_text"><span class="gk-nav-drop_title">App &amp; System Development</span><span class="gk-nav-drop_desc">Custom apps and business systems</span></span></a></li>
-                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="digital-namecard.html"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <li class="gk-nav-drop_group"><a class="gk-nav-drop_link" href="digital-namecard/"><span class="gk-nav-drop_icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                                             <rect height="14" rx="2.5" width="18" x="3" y="5"></rect>
                                                                             <circle cx="8.5" cy="11" r="2"></circle>
                                                                             <path d="M5.8 15.5c.5-1.3 1.5-2 2.7-2s2.2.7 2.7 2M14 10h4M14 13.5h3"></path>
@@ -2316,7 +2618,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="nav_menu-item"><a class="nav_menu-link is-about w-inline-block" href="about.html">
+                                            <li class="nav_menu-item"><a class="nav_menu-link is-about w-inline-block" href="about/">
                                                     <p>About</p>
                                                 </a></li>
                                             <li class="nav_menu-item gk-nav-item"><button aria-controls="nav-blog" aria-expanded="false" class="nav_menu-link is-blogs gk-nav-toggle" type="button"><span>Blog</span><svg aria-hidden="true" class="gk-nav-caret" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -2325,28 +2627,28 @@
                                                 <div class="gk-nav-drop is-blog" id="nav-blog">
                                                     <div class="gk-nav-drop_inner">
                                                         <ul class="gk-nav-drop_list" role="list">
-                                                            <li><a class="gk-nav-drop_sub" href="blog.html">All posts</a></li>
-                                                            <li><a class="gk-nav-drop_sub" href="blog/web-design.html">Web Design</a></li>
-                                                            <li><a class="gk-nav-drop_sub" href="blog/hosting.html">Hosting</a></li>
-                                                            <li><a class="gk-nav-drop_sub" href="blog/domains.html">Domains</a></li>
-                                                            <li><a class="gk-nav-drop_sub" href="blog/digital-namecard.html">Digital Name Card</a></li>
-                                                            <li><a class="gk-nav-drop_sub" href="blog/app-development.html">App Development</a></li>
+                                                            <li><a class="gk-nav-drop_sub" href="blog/">All posts</a></li>
+                                                            <li><a class="gk-nav-drop_sub" href="blog/web-design/">Web Design</a></li>
+                                                            <li><a class="gk-nav-drop_sub" href="blog/hosting/">Hosting</a></li>
+                                                            <li><a class="gk-nav-drop_sub" href="blog/domains/">Domains</a></li>
+                                                            <li><a class="gk-nav-drop_sub" href="blog/digital-namecard/">Digital Name Card</a></li>
+                                                            <li><a class="gk-nav-drop_sub" href="blog/app-development/">App Development</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="nav_menu-item"><a class="nav_menu-link is-contact w-inline-block" href="contact.html">
+                                            <li class="nav_menu-item"><a class="nav_menu-link is-contact w-inline-block" href="contact/">
                                                     <p>Contact</p>
                                                 </a></li>
                                         </ul>
                                     </nav>
-                                    <div class="btn-wrap is-nav"><a class="button_secondary is-nav w-inline-block" href="landing/new-business.html">
+                                    <div class="btn-wrap is-nav"><a class="button_secondary is-nav w-inline-block" href="landing/new-business/">
                                             <p>Get started</p>
                                         </a></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-wrap hide-tablet"><a class="btn w-variant-677c3e37-bee7-e97d-75db-7421b3a72015 w-inline-block" data-wf--button--variant="secondary" href="landing/new-business.html">
+                        <div class="btn-wrap hide-tablet"><a class="btn w-variant-677c3e37-bee7-e97d-75db-7421b3a72015 w-inline-block" data-wf--button--variant="secondary" href="landing/new-business/">
                                 <div class="btn-fill w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
                                     <p class="btn-fill-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">Get started</p>
                                     <div class="btn-icon w-variant-677c3e37-bee7-e97d-75db-7421b3a72015"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
@@ -2399,7 +2701,7 @@
                                     <h1 class="max-width-heading-l" data-blur-reveal="">That page has moved, or never existed</h1>
                                     <p class="max-width-m">The link you followed may be out of date, or the page may have been renamed. Pick up from one of these instead.</p>
                                 </div>
-                                <div class="hero_header-btm"><a class="btn w-inline-block" data-wf--button--variant="primary" href="index.html">
+                                <div class="hero_header-btm"><a class="btn w-inline-block" data-wf--button--variant="primary" href="./">
                                         <div class="btn-fill">
                                             <p class="btn-fill-text">Back to the homepage</p>
                                             <div class="btn-icon"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
@@ -2412,7 +2714,7 @@
                                         </div>
                                     </a></div>
                             </div>
-                            <div class="gk-cards is-4" data-reveal=""><a class="gk-card gk-way" data-reveal-item="" href="web-design.html">
+                            <div class="gk-cards is-4" data-reveal=""><a class="gk-card gk-way" data-reveal-item="" href="web-design/">
                                     <div class="gk-card_icon"><svg aria-hidden="true" class="icon-1x1-large" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="4.5" width="18" height="15" rx="2.5" />
                                             <path d="M3 9h18M6.5 6.8h.01M9 6.8h.01" />
@@ -2421,7 +2723,7 @@
                                         <h2 class="heading-style-h6">Web Design</h2>
                                         <p>Websites built to attract customers, hosted on our own cloud.</p>
                                     </div>
-                                </a><a class="gk-card gk-way" data-reveal-item="" href="hosting.html">
+                                </a><a class="gk-card gk-way" data-reveal-item="" href="hosting/">
                                     <div class="gk-card_icon"><svg aria-hidden="true" class="icon-1x1-large" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <rect x="4" y="4" width="16" height="7" rx="2" />
                                             <rect x="4" y="13" width="16" height="7" rx="2" />
@@ -2431,7 +2733,7 @@
                                         <h2 class="heading-style-h6">Cloud Hosting</h2>
                                         <p>AI-powered cPanel hosting on LiteSpeed servers, with free migration.</p>
                                     </div>
-                                </a><a class="gk-card gk-way" data-reveal-item="" href="domains.html">
+                                </a><a class="gk-card gk-way" data-reveal-item="" href="domains/">
                                     <div class="gk-card_icon"><svg aria-hidden="true" class="icon-1x1-large" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="12" cy="12" r="8.5" />
                                             <path d="M3.5 12h17M12 3.5c2.6 2.6 2.6 14.4 0 17M12 3.5c-2.6 2.6-2.6 14.4 0 17" />
@@ -2440,7 +2742,7 @@
                                         <h2 class="heading-style-h6">Domains</h2>
                                         <p>Register or transfer a domain, held in your own name.</p>
                                     </div>
-                                </a><a class="gk-card gk-way" data-reveal-item="" href="blog.html">
+                                </a><a class="gk-card gk-way" data-reveal-item="" href="blog/">
                                     <div class="gk-card_icon"><svg aria-hidden="true" class="icon-1x1-large" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6.5 3.5h7l4 4v13h-11z" />
                                             <path d="M13.5 3.5v4h4M9 12h6M9 15.5h6" />
@@ -2462,7 +2764,7 @@
                         <div class="footer_flex-wrap" data-ani="from-btm">
                             <div class="footer_top">
                                 <div class="footer_top-left">
-                                    <h2 class="footer_title max-width-heading-l">Grow your website with Gotka Technologies <span class="text-color-grey">Web design, hosting and domains under one roof</span></h2><a class="btn w-variant-677c3e37-bee7-e97d-75db-7421b3a72015 w-inline-block" data-wf--button--variant="secondary" href="landing/new-business.html">
+                                    <h2 class="footer_title max-width-heading-l">Grow your website with Gotka Technologies <span class="text-color-grey">Web design, hosting and domains under one roof</span></h2><a class="btn w-variant-677c3e37-bee7-e97d-75db-7421b3a72015 w-inline-block" data-wf--button--variant="secondary" href="landing/new-business/">
                                         <div class="btn-fill w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
                                             <p class="btn-fill-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">Get started</p>
                                             <div class="btn-icon w-variant-677c3e37-bee7-e97d-75db-7421b3a72015"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
@@ -2481,7 +2783,8 @@
                             </div>
                             <div class="footer_divider"></div>
                             <div class="footer_middle">
-                                <div class="footer_middle-left"><a class="logo_link w-variant-321e674c-2213-9cf4-8be1-c961062354a5 w-inline-block" data-wf--logo--variant="footer" href="index.html"><img alt="Gotka Technologies" class="logo_img" height="152" loading="eager" src="assets/logo-horizontal.svg" width="624" /></a>
+                                <div class="footer_middle-left"><a class="logo_link w-variant-321e674c-2213-9cf4-8be1-c961062354a5 w-inline-block" data-wf--logo--variant="footer" href="./"><img alt="Gotka Technologies" class="logo_img" height="152" loading="eager" src="assets/logo-horizontal.svg" width="624" /></a>
+                                    <p class="gk-foot-about">We bring your business online — customisable cloud hosting, domain names and web design for growing businesses.</p>
                                     <div class="footer_info-wrap"><a class="footer_info-link is-first w-inline-block" href="https://maps.app.goo.gl/h3JwyLzUfywnL6AQ6" target="_blank"><img alt="" class="footer_info-icon is-first" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a275148f639fc1cda1a26cd_location.svg" />
                                             <p>Serving businesses across Malaysia</p>
                                         </a><a class="footer_info-link w-inline-block" href="tel:+601163316630"><img alt="" class="footer_info-icon" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a275149bb0b1436da9721c3_phone.svg" />
@@ -2489,21 +2792,22 @@
                                         </a><a class="footer_info-link w-inline-block" data-d="&#103;&#111;&#116;&#107;&#97;&#46;&#99;&#111;&#109;" data-u="&#104;&#101;&#108;&#108;&#111;" href="#" rel="nofollow"><img alt="" class="footer_info-icon" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a2751483f476ec8beb3a677_mail.svg" />
                                             <p>Show email</p>
                                         </a></div>
+                                    <div class="gk-foot-social"><a aria-label="Gotka Technologies on Facebook" href="https://www.facebook.com/p/Gotka-Technologies-61564390635502/" rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.7c0-.9.3-1.6 1.7-1.6h1.5V3.2C16.4 3.1 15.4 3 14.3 3c-2.4 0-4 1.4-4 4.2v2.6H7.5V13h2.8v8h3.2z"></path>
+                                            </svg></a><a aria-label="Gotka Technologies on LinkedIn" href="https://www.linkedin.com/company/gotka-technologies/" rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.5 8.8H3.6V21h2.9V8.8zM5 7.4a1.7 1.7 0 1 0 0-3.4 1.7 1.7 0 0 0 0 3.4zM21 13.5c0-3.2-1.7-4.9-4-4.9-1.9 0-2.7 1-3.2 1.8V8.8H11V21h2.9v-6.5c0-1.6.6-2.7 2.1-2.7 1.4 0 2 1 2 2.7V21H21v-7.5z"></path>
+                                            </svg></a></div>
                                 </div>
                                 <div class="footer_middle-right">
                                     <div class="footer_link-wrap">
                                         <p class="footer_link-wrap-label" id="footer-nav-1">Services</p>
                                         <nav aria-labelledby="footer-nav-1" class="footer_nav">
                                             <ul class="footer_nav-list" role="list">
-                                                <li class="footer_nav-item"><a class="footer_link" href="web-design.html">Web Design &amp; Development</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="web-design/quote.html">Packages &amp; Pricing</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="web-design/care.html">Care &amp; Maintenance</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="web-design/seo-content.html">SEO Content Writing</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="hosting.html">Business Cloud Hosting</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="domains.html">Domain Registration</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="domain-ideas.html">AI Domain Ideas</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="app-development.html">App &amp; System Development</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="digital-namecard.html">Digital Name Card</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="web-design/">Web Design &amp; Development</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="hosting/">Business Cloud Hosting</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="domains/">Domain Registration</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="app-development/">App &amp; System Development</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="digital-namecard/">Digital Name Card</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -2511,9 +2815,9 @@
                                         <p class="footer_link-wrap-label" id="footer-nav-2">Company</p>
                                         <nav aria-labelledby="footer-nav-2" class="footer_nav">
                                             <ul class="footer_nav-list" role="list">
-                                                <li class="footer_nav-item"><a class="footer_link" href="about.html">About</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="blog.html">Blog</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="contact.html">Contact</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="about/">About</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="blog/">Blog</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="contact/">Contact</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -2534,11 +2838,11 @@
                                         <p class="footer_link-wrap-label" id="footer-nav-4">Legal</p>
                                         <nav aria-labelledby="footer-nav-4" class="footer_nav">
                                             <ul class="footer_nav-list" role="list">
-                                                <li class="footer_nav-item"><a class="footer_link" href="terms.html">Terms of Service</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="acceptable-use.html">Acceptable Use Policy</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="privacy.html">Privacy Policy</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="refund-policy.html">Refund Policy</a></li>
-                                                <li class="footer_nav-item"><a class="footer_link" href="sla.html">Uptime SLA</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="terms/">Terms of Service</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="acceptable-use/">Acceptable Use Policy</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="privacy/">Privacy Policy</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="refund-policy/">Refund Policy</a></li>
+                                                <li class="footer_nav-item"><a class="footer_link" href="sla/">Uptime SLA</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -2546,8 +2850,8 @@
                             </div>
                             <div class="footer_divider"></div>
                             <div class="footer_btm">
-                                <div class="footer_btm-left"><a class="footer_btm-link" href="index.html">© 2004 – 2026 <span class="text-bg-blue-radial has-underline">Gotka Technologies</span></a><a class="footer_btm-link" href="sla.html">99.9% <span class="text-bg-blue-radial has-underline">uptime guarantee</span></a></div><a aria-label="back to top" class="footer_btm-right w-inline-block" href="#hero">
-                                    <p class="hide-mobile-l">Back to the top</p><img alt="" class="icon-1x1-large" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a2d6d49ae15e28840d4c866_arrow-up.svg" />
+                                <div class="footer_btm-left"><a class="footer_btm-link" href="./">© 2004 – 2026 <span class="text-bg-blue-radial has-underline">Gotka Technologies</span></a><a class="footer_btm-link" href="sla/">99.9% <span class="text-bg-blue-radial has-underline">uptime guarantee</span></a></div><a aria-label="back to top" class="footer_btm-right w-inline-block" href="#hero">
+                                    <p class="hide-mobile-l">Back to the top</p><img alt="" class="icon-1x1-large" loading="lazy" src="assets/tpl/arrow-up.svg" />
                                 </a>
                             </div>
                         </div>
@@ -2712,7 +3016,7 @@
         <a aria-label="Chat with us on WhatsApp" class="gk-fab_btn is-wa" href="https://wa.me/601163316630?text=Hi%20Gotka%20Technologies%2C%20I%20have%20a%20question%20about%20your%20services." rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8zm-3.3 4.4c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5 0 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.5-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5L9.6 8.7c-.3-.6-.5-.5-.7-.5h-.2z"></path>
             </svg><span>WhatsApp</span></a>
-        <a aria-controls="lead-lb" aria-haspopup="dialog" aria-label="Message us — open the enquiry form" class="gk-fab_btn is-msg" data-lb-open="" href="contact.html#lead-form"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <a aria-controls="lead-lb" aria-haspopup="dialog" aria-label="Message us — open the enquiry form" class="gk-fab_btn is-msg" data-lb-open="" href="contact/#lead-form"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 5.5h15a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3.5v-3.5h-2A1.5 1.5 0 0 1 3 16V7a1.5 1.5 0 0 1 1.5-1.5z"></path>
                 <path d="M8 10h8M8 13.5h5"></path>
             </svg><span>Message us</span></a>

@@ -2350,11 +2350,18 @@
             color: #0b2b1d;
         }
 
-        .button_secondary.is-light-blue:hover {
-            border-bottom-color: var(--_colors---base--blue-300);
-            background-color: var(--_colors---base--blue-100);
-            background-image: none;
+        /* the help card's button (beside every article, in the FAQ sections): dark with white text, so the card's green
+           background is its one green. Hovered, the template's overlay fades in petrol */
+        .button_secondary.is-light-blue.is-faqs {
+            border-bottom-color: #000;
+            background-color: #0f1d2a;
+            background-image: radial-gradient(circle farthest-corner at 150% 0%, #22394a, #0f1d2a);
+            box-shadow: 0 8px 12px 0 rgba(15, 29, 42, 0.25);
             color: #fff;
+        }
+
+        .button_secondary.is-light-blue.is-faqs .button-radial-overlay {
+            background-image: radial-gradient(circle farthest-corner at 150% 0%, #2a8f8c, #0d5c63);
         }
 
         .button_secondary.is-nav:hover {
@@ -2440,6 +2447,455 @@
             .nav {
                 padding-top: 0.5rem;
                 padding-bottom: 0.5rem;
+            }
+        }
+
+        /* ---------- header: language, search, sign in ---------- */
+        /* as on gotka.com: the site in three languages, a search over every page and the client area's sign-in. On a
+           desktop they sit before "Get started"; on a tablet or phone the language and search buttons stay in the bar
+           beside the menu button, and "Sign in" is under "Get started" at the foot of the menu.
+           The language list opens with the LANGUAGE MENU script, the search box with SITE SEARCH (common.SEARCH_JS) */
+        .gk-nav-end {
+            display: flex;
+            flex: none;
+            align-items: center;
+            column-gap: 0.75rem;
+        }
+
+        .gk-nav-tools {
+            display: flex;
+            align-items: center;
+            column-gap: 0.375rem;
+        }
+
+        .gk-lang {
+            position: relative;
+        }
+
+        .gk-lang_btn,
+        .gk-search-open,
+        .gk-signin {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.75rem;
+            margin: 0;
+            border: 1px solid #dce3df;
+            border-radius: 0.75rem;
+            background-color: #fff;
+            color: #0f1d2a;
+            font-family: var(--_typography---font-family--primary);
+            line-height: 1;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            transition: border-color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .gk-lang_btn {
+            column-gap: 0.375rem;
+            padding: 0 0.625rem;
+            font-family: var(--_typography---font-family--tertiary);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .gk-search-open {
+            width: 2.75rem;
+            padding: 0;
+        }
+
+        .gk-signin {
+            column-gap: 0.4375rem;
+            padding: 0 0.875rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .gk-lang_btn:hover,
+        .gk-search-open:hover,
+        .gk-signin:hover,
+        .gk-lang.is-open .gk-lang_btn {
+            border-color: #0d5c63;
+        }
+
+        .gk-lang_btn:focus-visible,
+        .gk-search-open:focus-visible,
+        .gk-signin:focus-visible,
+        .gk-lang_link:focus-visible {
+            outline: 2px solid #0d5c63;
+            outline-offset: 2px;
+        }
+
+        .gk-lang_btn svg,
+        .gk-search-open svg,
+        .gk-signin svg {
+            flex: none;
+            width: 1.0625rem;
+            height: 1.0625rem;
+        }
+
+        .gk-lang_btn .gk-lang_caret {
+            width: 0.625rem;
+            height: 0.625rem;
+            opacity: 0.6;
+            transition: transform 0.2s ease;
+        }
+
+        .gk-lang.is-open .gk-lang_caret {
+            transform: rotate(180deg);
+        }
+
+        .gk-lang_list {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            z-index: 6;
+            min-width: 12rem;
+            margin: 0;
+            padding: 0.375rem;
+            list-style: none;
+            border: 1px solid rgba(15, 29, 42, 0.08);
+            border-radius: 1rem;
+            background-color: #fff;
+            box-shadow: 0 18px 40px -12px rgba(15, 29, 42, 0.25);
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-0.375rem);
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+        }
+
+        /* without scripts the list still opens while its button or one of its links has the focus */
+        .gk-lang.is-open .gk-lang_list,
+        html:not(.w-mod-js) .gk-lang:focus-within .gk-lang_list {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+            transition-delay: 0s;
+        }
+
+        .gk-lang_link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 1rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.625rem;
+            color: #0f1d2a;
+            font-size: 0.9375rem;
+            line-height: 1.3;
+            text-decoration: none;
+        }
+
+        .gk-lang_link:hover {
+            background-color: #f1f4f2;
+            color: #0f1d2a;
+        }
+
+        .gk-lang_link.is-current {
+            font-weight: 600;
+        }
+
+        /* a tick beside the language the page is in */
+        .gk-lang_link.is-current::after {
+            content: "";
+            flex: none;
+            width: 1rem;
+            height: 1rem;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230D5C63' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7'/%3E%3C/svg%3E") center / contain no-repeat;
+        }
+
+        /* the client area's sign-in at the foot of the menu on a tablet or phone (the menu's block is hidden on a desktop):
+           a white button under the green "Get started", the same size */
+        .gk-signin-menu {
+            display: block;
+            margin-top: 0.625rem;
+            padding: var(--base--s-18);
+            border: 1px solid #dce3df;
+            border-radius: var(--border-radius--xlarge);
+            background-color: #fff;
+            color: #0f1d2a;
+            line-height: 1.5;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .gk-signin-menu:hover {
+            border-color: #0d5c63;
+            color: #0f1d2a;
+        }
+
+        .gk-signin-menu p {
+            margin: 0;
+        }
+
+        /* a desktop under 1200px wide has less room: the menu's links sit a little closer and "Sign in" shows its icon
+           only (its words stay for screen readers) */
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .nav_menu-link:not(.w--current) {
+                padding-right: 0.625rem;
+                padding-left: 0.625rem;
+            }
+
+            .nav_menu-link.w--current {
+                padding-right: 0.625rem;
+            }
+
+            .gk-signin {
+                width: 2.75rem;
+                padding: 0;
+            }
+
+            .gk-signin span {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip: rect(0 0 0 0);
+                white-space: nowrap;
+            }
+        }
+
+        /* tablet and phone: the language and search buttons beside the menu button, at its size */
+        @media screen and (max-width: 991px) {
+            .gk-nav-end {
+                position: relative;
+                z-index: 1000;
+                margin-left: auto;
+            }
+
+            .gk-signin {
+                display: none;
+            }
+
+            .gk-lang_btn,
+            .gk-search-open {
+                height: 3.125rem;
+                border-radius: var(--base--s-6);
+            }
+
+            .gk-search-open {
+                width: 3.125rem;
+            }
+
+            .gk-lang_btn {
+                padding: 0 0.75rem;
+            }
+        }
+
+        @media screen and (max-width: 479px) {
+            .gk-nav-end {
+                column-gap: 0.375rem;
+            }
+
+            .gk-nav-tools {
+                column-gap: 0.375rem;
+            }
+
+            .gk-lang_btn {
+                padding: 0 0.5rem;
+                column-gap: 0.3125rem;
+            }
+
+            .gk-lang_btn .gk-lang_globe {
+                display: none;
+            }
+        }
+
+        /* ---------- 中文 pages ---------- */
+        /* the template's typefaces have no Chinese characters: the reader's own system font for Chinese takes over for those
+           (PingFang on Apple, Microsoft YaHei on Windows, Noto on Android and Linux), while letters and numbers stay in
+           Geist and Inter Display */
+        :root:lang(zh) {
+            --_typography---font-family--primary: Geist, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", Arial, sans-serif;
+            --_typography---font-family--secondary: "Inter Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", Arial, sans-serif;
+            --_typography---font-family--tertiary: "Geist Mono", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", monospace;
+        }
+
+        /* a heading breaks between phrases (after "、" or "，"), not inside a word; a phrase too long for the line still
+           breaks where it has to */
+        :lang(zh) :is(h1, h2, h3, .heading-style-h1, .heading-style-h2, .heading-style-h3, .heading-style-h4) {
+            word-break: keep-all;
+            overflow-wrap: anywhere;
+        }
+
+        /* ---------- search box ---------- */
+        /* a box over the page, near the top: the search field, then up to 8 results (section, title, description) */
+        .gk-search {
+            width: 100%;
+            max-width: min(36rem, calc(100vw - 2rem));
+            margin: 10vh auto auto;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            overflow: visible;
+        }
+
+        .gk-search::backdrop {
+            background-color: rgba(15, 29, 42, 0.5);
+            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+        }
+
+        .gk-search_box {
+            border: 1px solid #dce3df;
+            border-radius: 1.25rem;
+            background-color: #fff;
+            box-shadow: 0 30px 70px -20px rgba(15, 29, 42, 0.35);
+            overflow: hidden;
+        }
+
+        .gk-search_row {
+            display: flex;
+            align-items: center;
+            column-gap: 0.75rem;
+            padding: 1rem 1.125rem;
+            border-bottom: 1px solid #dce3df;
+            color: #41566a;
+        }
+
+        .gk-search_row>svg {
+            flex: none;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .gk-search_input {
+            flex: 1;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #0f1d2a;
+            font-family: var(--_typography---font-family--primary);
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.4;
+            outline: 0;
+        }
+
+        .gk-search_input::placeholder {
+            color: #8796a5;
+        }
+
+        .gk-search_close {
+            flex: none;
+            display: grid;
+            place-items: center;
+            width: 2rem;
+            height: 2rem;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0.5rem;
+            background-color: #f1f4f2;
+            color: #0f1d2a;
+            font-size: 1.25rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .gk-search_close:hover {
+            background-color: #dce3df;
+        }
+
+        .gk-search_results {
+            max-height: 60vh;
+            padding: 0.5rem;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .gk-search_results:empty {
+            display: none;
+        }
+
+        .gk-search_item {
+            display: block;
+            padding: 0.75rem 0.875rem;
+            border-radius: 0.75rem;
+            color: #0f1d2a;
+            text-decoration: none;
+        }
+
+        .gk-search_item:hover,
+        .gk-search_item:focus {
+            background-color: #f1f4f2;
+            color: #0f1d2a;
+            outline: 0;
+        }
+
+        .gk-search_item:focus-visible {
+            box-shadow: inset 0 0 0 2px #0d5c63;
+        }
+
+        .gk-search_cat {
+            display: block;
+            color: #0d5c63;
+            font-family: var(--_typography---font-family--tertiary);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .gk-search_title {
+            display: block;
+            margin-top: 0.125rem;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .gk-search_desc {
+            display: -webkit-box;
+            margin-top: 0.25rem;
+            overflow: hidden;
+            color: #41566a;
+            font-size: 0.875rem;
+            line-height: 1.45;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .gk-search mark {
+            border-radius: 2px;
+            background-color: rgba(46, 194, 126, 0.28);
+            color: inherit;
+        }
+
+        .gk-search_empty {
+            margin: 0;
+            padding: 1.75rem 1.125rem;
+            color: #41566a;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* a phone: the box fills the screen */
+        @media screen and (max-width: 479px) {
+            .gk-search {
+                max-width: 100vw;
+                height: 100%;
+                max-height: 100vh;
+                max-height: 100dvh;
+                margin: 0;
+            }
+
+            .gk-search_box {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                border: 0;
+                border-radius: 0;
+            }
+
+            .gk-search_results {
+                flex: 1;
+                max-height: none;
             }
         }
 
@@ -2693,22 +3149,46 @@
                                     </nav>
                                     <div class="btn-wrap is-nav"><a class="button_secondary is-nav w-inline-block" href="../../landing/new-business/">
                                             <p>Get started</p>
+                                        </a><a class="gk-signin-menu" href="https://gotka.com/clients/login" rel="nofollow">
+                                            <p>Sign in</p>
                                         </a></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-wrap hide-tablet"><a class="btn w-variant-677c3e37-bee7-e97d-75db-7421b3a72015 w-inline-block" data-wf--button--variant="secondary" href="../../landing/new-business/">
-                                <div class="btn-fill w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
-                                    <p class="btn-fill-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">Get started</p>
-                                    <div class="btn-icon w-variant-677c3e37-bee7-e97d-75db-7421b3a72015"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
-                                    <div class="btn-icon-wrap w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
-                                        <div class="btn-icon-absolute w-variant-677c3e37-bee7-e97d-75db-7421b3a72015"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
+                        <div class="gk-nav-end">
+                            <div class="gk-nav-tools">
+                                <div class="gk-lang"><button aria-controls="gk-lang-list" aria-expanded="false" aria-label="Language: English" class="gk-lang_btn" type="button"><svg aria-hidden="true" class="gk-lang_globe" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="12" cy="12" r="8.75"></circle>
+                                            <path d="M3.25 12h17.5M12 3.25c2.4 2.5 3.6 5.4 3.6 8.75s-1.2 6.25-3.6 8.75M12 3.25C9.6 5.75 8.4 8.65 8.4 12s1.2 6.25 3.6 8.75"></path>
+                                        </svg><span>EN</span><svg aria-hidden="true" class="gk-lang_caret" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="m6 9 6 6 6-6"></path>
+                                        </svg></button>
+                                    <ul class="gk-lang_list" id="gk-lang-list" role="list">
+                                        <li><a aria-current="true" class="gk-lang_link is-current" href="../../blog/product-catalogue-vs-online-store-malaysia/" hreflang="en" lang="en">English</a></li>
+                                        <li><a class="gk-lang_link" href="../../ms/blog/product-catalogue-vs-online-store-malaysia/" hreflang="ms" lang="ms">Bahasa Melayu</a></li>
+                                        <li><a class="gk-lang_link" href="../../zh/blog/product-catalogue-vs-online-store-malaysia/" hreflang="zh-Hans" lang="zh-Hans">中文</a></li>
+                                    </ul>
+                                </div><button aria-haspopup="dialog" aria-label="Search" class="gk-search-open" data-search-open="" title="Search" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="11" cy="11" r="7"></circle>
+                                        <path d="m20 20-3.2-3.2"></path>
+                                    </svg></button><a class="gk-signin" href="https://gotka.com/clients/login" rel="nofollow"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="8.25" r="3.75"></circle>
+                                        <path d="M4.75 20c.9-3.5 3.8-5.5 7.25-5.5s6.35 2 7.25 5.5"></path>
+                                    </svg><span>Sign in</span></a>
+                            </div>
+                            <div class="btn-wrap hide-tablet"><a class="btn w-variant-677c3e37-bee7-e97d-75db-7421b3a72015 w-inline-block" data-wf--button--variant="secondary" href="../../landing/new-business/">
+                                    <div class="btn-fill w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
+                                        <p class="btn-fill-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">Get started</p>
+                                        <div class="btn-icon w-variant-677c3e37-bee7-e97d-75db-7421b3a72015"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
+                                        <div class="btn-icon-wrap w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
+                                            <div class="btn-icon-absolute w-variant-677c3e37-bee7-e97d-75db-7421b3a72015"><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /><img alt="Arrows" class="btn-icon-img" loading="lazy" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a20ef4f1998cb56dd0d3f3a_83810f41f50243f20509717f1fa10ebc_button-arrows.svg" /></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="btn-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
-                                    <p class="btn-base-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">Get started</p>
-                                </div>
-                            </a></div><button aria-label="open menu" class="nav_menu-btn">
+                                    <div class="btn-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">
+                                        <p class="btn-base-text w-variant-677c3e37-bee7-e97d-75db-7421b3a72015">Get started</p>
+                                    </div>
+                                </a></div>
+                        </div><button aria-label="open menu" class="nav_menu-btn">
                             <div class="nav_menu-line-wrap">
                                 <div class="nav_menu-line is-first"></div>
                                 <div class="nav_menu-line is-middle"></div>
@@ -3284,6 +3764,16 @@
             <div data-gotech-lead-form=""></div>
         </div>
     </dialog>
+    <dialog aria-label="Search" class="gk-search" data-empty="No pages match “%s”." data-lang="en" data-root="../../" id="gk-search">
+        <div class="gk-search_box" data-lenis-prevent="">
+            <div class="gk-search_row"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-3.2-3.2"></path>
+                </svg><input aria-label="Search" autocomplete="off" class="gk-search_input" enterkeyhint="search" placeholder="Search the site…" spellcheck="false" type="text" /><button aria-label="Close" class="gk-search_close" type="button">&times;</button></div>
+            <div class="gk-search_results"></div>
+            <p aria-live="polite" class="gk-search_empty" hidden=""></p>
+        </div>
+    </dialog>
     <script async="" src="https://crm.gotka.com/embed/lead-form.js?lang=en"></script>
     <script>
         /* ── START: ENQUIRY DIALOG ── */
@@ -3507,6 +3997,204 @@
             });
         })();
         /* ── END: MENU PANELS ── */
+    </script>
+    <script>
+        /* ── START: LANGUAGE MENU ── */
+        // — The globe button in the header lists the site's languages; each link goes to this page in that language
+        // — A click or tap opens and closes the list; Escape, a click elsewhere or tabbing out of it closes it
+        (() => {
+            const box = document.querySelector('.gk-lang');
+            if (!box) return;
+            const button = box.querySelector('.gk-lang_btn');
+            const set = open => {
+                box.classList.toggle('is-open', open);
+                button.setAttribute('aria-expanded', String(open));
+            };
+
+            button.addEventListener('click', () => set(!box.classList.contains('is-open')));
+            box.addEventListener('keydown', event => {
+                if (event.key !== 'Escape' || !box.classList.contains('is-open')) return;
+                set(false);
+                button.focus();
+            });
+            box.addEventListener('focusout', () => {
+                setTimeout(() => {
+                    if (!box.contains(document.activeElement)) set(false);
+                });
+            });
+            document.addEventListener('pointerdown', event => {
+                if (!box.contains(event.target)) set(false);
+            });
+            // a page brought back by the Back button is shown as it was left: with the list still open
+            window.addEventListener('pageshow', event => {
+                if (event.persisted) set(false);
+            });
+        })();
+        /* ── END: LANGUAGE MENU ── */
+
+        /* ── START: SITE SEARCH ── */
+        // — The magnifier in the header (or the / key) opens a search box over the page. It searches every page of the
+        //   site in this page's language - titles, main headings and descriptions - from the list in
+        //   assets/search-index.<en|ms|zh>.json, fetched the first time the box opens
+        // — Every word typed has to match somewhere. A word in a title counts most (most of all at its start), then one in
+        //   the heading, then one in the description; the best 8 pages are listed
+        // — ↓ and ↑ move through the results, Enter opens the one selected (the first, from the field), Escape closes the box
+        // — An address ending in ?q=… opens the box with that search in it
+        // — Tweak: 8 = how many results are listed, 90 = how long (ms) to wait for typing to pause before searching
+        (() => {
+            const dialog = document.getElementById('gk-search');
+            if (!dialog || typeof dialog.showModal !== 'function') {
+                document.querySelectorAll('[data-search-open]').forEach(button => button.hidden = true);
+                return;
+            }
+            const input = dialog.querySelector('.gk-search_input');
+            const list = dialog.querySelector('.gk-search_results');
+            const empty = dialog.querySelector('.gk-search_empty');
+            const root = new URL(dialog.dataset.root || './', document.baseURI);
+            const source = new URL('assets/search-index.' + (dialog.dataset.lang || 'en') + '.json', root);
+            let pages = null;
+            let loading = null;
+            let timer;
+
+            const load = () => {
+                if (pages) return Promise.resolve(pages);
+                if (!loading) {
+                    loading = fetch(source)
+                        .then(response => response.ok ? response.json() : [])
+                        .catch(() => [])
+                        .then(found => (pages = found));
+                }
+                return loading;
+            };
+            const escape = text => String(text || '').replace(/[&<>"]/g, c => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;'
+            })[c]);
+            // the words found, highlighted (never inside a highlight already made)
+            const mark = (text, words) => words.reduce((out, word) => {
+                const pattern = escape(word).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                return out.replace(new RegExp('(' + pattern + ')(?![^<]*>)', 'gi'), '<mark>$1</mark>');
+            }, escape(text));
+            const score = (page, words) => {
+                const title = page.title.toLowerCase();
+                const heading = (page.h1 || '').toLowerCase();
+                const about = (page.description || '').toLowerCase();
+                let total = 0;
+                for (const word of words) {
+                    let found = false;
+                    const at = title.indexOf(word);
+                    if (at !== -1) {
+                        total += at === 0 ? 6 : 4;
+                        found = true;
+                    }
+                    if (heading.indexOf(word) !== -1) {
+                        total += 2;
+                        found = true;
+                    }
+                    if (about.indexOf(word) !== -1) {
+                        total += 1;
+                        found = true;
+                    }
+                    if (!found) return 0;
+                }
+                return total;
+            };
+            const show = query => {
+                const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+                if (!words.length) {
+                    list.innerHTML = '';
+                    empty.hidden = true;
+                    return;
+                }
+                load().then(all => {
+                    if (input.value !== query) return;
+                    // the list is in the site's order (home, services, company, blog), which breaks ties
+                    const found = all.map((page, order) => ({
+                        page,
+                        order,
+                        points: score(page, words)
+                    })).filter(hit => hit.points > 0).sort((a, b) => b.points - a.points || a.order - b.order).slice(0, 8);
+                    list.innerHTML = '';
+                    empty.hidden = found.length > 0;
+                    if (!found.length) {
+                        empty.textContent = (dialog.dataset.empty || '').replace('%s', query.trim());
+                        return;
+                    }
+                    found.forEach(({
+                        page
+                    }) => {
+                        const link = document.createElement('a');
+                        link.className = 'gk-search_item';
+                        link.href = new URL(page.url, root).href;
+                        link.innerHTML = '<span class="gk-search_cat">' + escape(page.catLabel) + '</span>' +
+                            '<span class="gk-search_title">' + mark(page.title, words) + '</span>' +
+                            '<span class="gk-search_desc">' + mark(page.description, words) + '</span>';
+                        list.appendChild(link);
+                    });
+                });
+            };
+            const open = () => {
+                load();
+                if (!dialog.open) dialog.showModal();
+                input.value = '';
+                list.innerHTML = '';
+                empty.hidden = true;
+                setTimeout(() => input.focus(), 10);
+            };
+
+            document.addEventListener('click', event => {
+                if (event.target.closest('[data-search-open]')) {
+                    event.preventDefault();
+                    open();
+                } else if (event.target.closest('.gk-search_close') || event.target === dialog) {
+                    dialog.close();
+                }
+            });
+            document.addEventListener('keydown', event => {
+                if (event.key !== '/' || dialog.open || event.ctrlKey || event.metaKey || event.altKey) return;
+                const target = event.target;
+                if (target && target.closest && target.closest('input, textarea, select, [contenteditable]')) return;
+                event.preventDefault();
+                open();
+            });
+            input.addEventListener('input', () => {
+                clearTimeout(timer);
+                timer = setTimeout(() => show(input.value), 90);
+            });
+            input.addEventListener('keydown', event => {
+                const first = list.querySelector('.gk-search_item');
+                if (event.key === 'ArrowDown' && first) {
+                    event.preventDefault();
+                    first.focus();
+                } else if (event.key === 'Enter' && first) {
+                    event.preventDefault();
+                    location.href = first.href;
+                }
+            });
+            list.addEventListener('keydown', event => {
+                const items = [...list.querySelectorAll('.gk-search_item')];
+                const at = items.indexOf(document.activeElement);
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    (items[at + 1] || items[0]).focus();
+                } else if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    if (at <= 0) input.focus();
+                    else items[at - 1].focus();
+                }
+            });
+            try {
+                const query = new URLSearchParams(location.search).get('q');
+                if (query) {
+                    open();
+                    input.value = query;
+                    show(query);
+                }
+            } catch (error) {}
+        })();
+        /* ── END: SITE SEARCH ── */
     </script>
 </body>
 

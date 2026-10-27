@@ -2371,6 +2371,72 @@
             color: #0b2b1d;
         }
 
+        /* the band before the footer on the web design pages (common.promise_band): ink, with a petrol glow at the top
+           right like the dark sections, the promise in white and green, the green button to the package builder */
+        .gk-promise {
+            position: relative;
+            overflow: hidden;
+            background-color: #0f1d2a;
+            background-image: radial-gradient(circle farthest-corner at 100% 0%, rgba(42, 143, 140, 0.42), rgba(15, 29, 42, 0) 55%);
+            color: #fff;
+        }
+
+        .gk-promise_inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 3rem;
+            row-gap: 1.75rem;
+            padding-top: 4.5rem;
+            padding-bottom: 4.5rem;
+        }
+
+        .gk-promise_words {
+            max-width: 46rem;
+        }
+
+        .gk-promise_title {
+            margin: 0;
+            color: #fff;
+            text-wrap: balance;
+        }
+
+        .gk-promise_title span {
+            color: #2ec27e;
+        }
+
+        .gk-promise_text {
+            margin: 0.875rem 0 0;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 1.0625rem;
+            line-height: 1.55;
+        }
+
+        .gk-promise_cta {
+            flex: none;
+        }
+
+        @media screen and (max-width: 767px) {
+            .gk-promise_inner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+        }
+
+        /* the hero's Google badge: its words are a link to Gotka's Google reviews */
+        .gk-reviews {
+            text-decoration: underline;
+            text-decoration-color: rgba(13, 92, 99, 0.35);
+            text-underline-offset: 0.2em;
+        }
+
+        .gk-reviews:hover {
+            color: #0d5c63;
+            text-decoration-color: currentColor;
+        }
+
         /* the homepage heading's icon tile: green into petrol (the template's runs from sky blue) */
         .h1-icon_layer {
             background-image: linear-gradient(90deg, #2ec27e, var(--_colors---base--blue-100));
@@ -2607,6 +2673,64 @@
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230D5C63' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7'/%3E%3C/svg%3E") center / contain no-repeat;
         }
 
+        /* from 1280px wide the languages sit side by side, EN | BM | 中文 as in gotka.com's header, the page's own filled in
+           petrol; narrower screens keep the globe button and its list (below 1280px the BM menu has no room for them) */
+        .gk-lang_side {
+            display: none;
+            align-items: center;
+            column-gap: 0.125rem;
+            height: 2.75rem;
+            padding: 0.25rem;
+            border: 1px solid #dce3df;
+            border-radius: 0.75rem;
+            background-color: #fff;
+        }
+
+        .gk-lang_seg {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.25rem;
+            height: 100%;
+            padding: 0 0.5rem;
+            border-radius: 0.5rem;
+            color: #41566a;
+            font-family: var(--_typography---font-family--tertiary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .gk-lang_seg:hover {
+            background-color: #f1f4f2;
+            color: #0f1d2a;
+        }
+
+        .gk-lang_seg.is-current {
+            background-color: #0d5c63;
+            color: #fff;
+        }
+
+        .gk-lang_seg:focus-visible {
+            outline: 2px solid #0d5c63;
+            outline-offset: 2px;
+        }
+
+        @media screen and (min-width: 1280px) {
+            .gk-lang_side {
+                display: inline-flex;
+            }
+
+            .gk-lang_btn,
+            .gk-lang_list {
+                display: none;
+            }
+        }
+
         /* the client area's sign-in at the foot of the menu on a tablet or phone (the menu's block is hidden on a desktop):
            a white button under the green "Get started", the same size */
         .gk-signin-menu {
@@ -2629,6 +2753,28 @@
 
         .gk-signin-menu p {
             margin: 0;
+        }
+
+        /* on a desktop each menu label stays on one line ("Tentang Kami" in BM wrapped below 1080px), and the current
+           section's icon sits a fixed 0.875rem in: the template places it at 15% of the link's width, which put it against
+           BM's longer labels ("Perkhidmatan") */
+        @media screen and (min-width: 992px) {
+
+            .nav_menu-link,
+            .nav_menu-link p {
+                white-space: nowrap;
+            }
+
+            .nav_menu-link.w--current {
+                background-position: 0.875rem 50%;
+            }
+        }
+
+        /* below 1080px the language button shows its code and arrow without the globe, which leaves BM's menu room */
+        @media screen and (min-width: 992px) and (max-width: 1079px) {
+            .gk-lang_btn .gk-lang_globe {
+                display: none;
+            }
         }
 
         /* a desktop under 1200px wide has less room: the menu's links sit a little closer and "Sign in" shows its icon
@@ -3157,7 +3303,8 @@
                         </div>
                         <div class="gk-nav-end">
                             <div class="gk-nav-tools">
-                                <div class="gk-lang"><button aria-controls="gk-lang-list" aria-expanded="false" aria-label="Bahasa: Bahasa Melayu" class="gk-lang_btn" type="button"><svg aria-hidden="true" class="gk-lang_globe" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <div class="gk-lang">
+                                    <div aria-label="Bahasa" class="gk-lang_side" role="group"><a aria-label="English" class="gk-lang_seg" href="../../../blog/wordpress-site-speed-malaysia/" hreflang="en" lang="en">EN</a><a aria-current="true" aria-label="Bahasa Melayu" class="gk-lang_seg is-current" href="../../../ms/blog/wordpress-site-speed-malaysia/" hreflang="ms" lang="ms">BM</a><a aria-label="中文" class="gk-lang_seg" href="../../../zh/blog/wordpress-site-speed-malaysia/" hreflang="zh-Hans" lang="zh-Hans">中文</a></div><button aria-controls="gk-lang-list" aria-expanded="false" aria-label="Bahasa: Bahasa Melayu" class="gk-lang_btn" type="button"><svg aria-hidden="true" class="gk-lang_globe" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="12" cy="12" r="8.75"></circle>
                                             <path d="M3.25 12h17.5M12 3.25c2.4 2.5 3.6 5.4 3.6 8.75s-1.2 6.25-3.6 8.75M12 3.25C9.6 5.75 8.4 8.65 8.4 12s1.2 6.25 3.6 8.75"></path>
                                         </svg><span>BM</span><svg aria-hidden="true" class="gk-lang_caret" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

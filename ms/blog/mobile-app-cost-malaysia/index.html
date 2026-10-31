@@ -2868,8 +2868,9 @@
         }
 
         /* ---------- search box ---------- */
-        /* a box over the page, near the top: the search field, then up to 8 results (section, title, description) */
-        .gk-search {
+        /* a box over the page, near the top: the search field, then up to 8 results (section, title, description).
+           Its own class is gk-site-search: the domain pages' search field is .gk-search, and the two must not share rules */
+        .gk-site-search {
             width: 100%;
             max-width: min(36rem, calc(100vw - 2rem));
             margin: 10vh auto auto;
@@ -2879,7 +2880,7 @@
             overflow: visible;
         }
 
-        .gk-search::backdrop {
+        .gk-site-search::backdrop {
             background-color: rgba(15, 29, 42, 0.5);
             -webkit-backdrop-filter: blur(2px);
             backdrop-filter: blur(2px);
@@ -3007,7 +3008,7 @@
             -webkit-box-orient: vertical;
         }
 
-        .gk-search mark {
+        .gk-site-search mark {
             border-radius: 2px;
             background-color: rgba(46, 194, 126, 0.28);
             color: inherit;
@@ -3023,7 +3024,7 @@
 
         /* a phone: the box fills the screen */
         @media screen and (max-width: 479px) {
-            .gk-search {
+            .gk-site-search {
                 max-width: 100vw;
                 height: 100%;
                 max-height: 100vh;
@@ -3904,7 +3905,7 @@
             <div data-gotech-lead-form=""></div>
         </div>
     </dialog>
-    <dialog aria-label="Cari" class="gk-search" data-empty="Tiada halaman sepadan dengan “%s”." data-lang="ms" data-root="../../../" id="gk-search">
+    <dialog aria-label="Cari" class="gk-site-search" data-empty="Tiada halaman sepadan dengan “%s”." data-lang="ms" data-root="../../../" id="gk-search">
         <div class="gk-search_box" data-lenis-prevent="">
             <div class="gk-search_row"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="11" cy="11" r="7"></circle>

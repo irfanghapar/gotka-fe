@@ -2569,21 +2569,36 @@
             background-image: linear-gradient(90deg, #2ec27e, var(--_colors---base--blue-100));
         }
 
-        /* the soft gradient behind every page is a pale blue picture: tinted green-grey, towards gotka.com's page colour.
-           The wrap's own pale colour is what the tint falls on until the picture has loaded */
+        /* behind every page: a bright mint white with soft green and teal glows (the template's pale blue picture is
+           no longer loaded) */
+        body,
         .gradient-wrap {
-            background-color: #e9eff1;
+            background-color: #f7fbf9;
         }
 
-        .gradient-wrap::after {
+        .gradient-wrap::before {
             content: "";
             position: absolute;
             inset: 0;
-            z-index: 2;
-            background-color: #2ec27e;
-            opacity: 0.7;
-            mix-blend-mode: hue;
+            background-image: radial-gradient(42% 40% at 10% 14%, rgba(46, 194, 126, 0.42), rgba(46, 194, 126, 0) 70%), radial-gradient(40% 44% at 92% 10%, rgba(42, 143, 140, 0.36), rgba(42, 143, 140, 0) 70%), radial-gradient(55% 45% at 72% 92%, rgba(120, 224, 190, 0.34), rgba(120, 224, 190, 0) 70%), radial-gradient(40% 40% at 18% 96%, rgba(13, 92, 99, 0.14), rgba(13, 92, 99, 0) 70%);
             pointer-events: none;
+        }
+
+        /* the homepage headline's last words in the brand gradient, petrol into green (plain teal where a browser
+           can't clip a background to text) */
+        .gk-grad {
+            color: #2a8f8c;
+        }
+
+        @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+            .gk-grad {
+                background-image: linear-gradient(90deg, #0d5c63, #2a8f8c 45%, #2ec27e);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                -webkit-box-decoration-break: clone;
+                box-decoration-break: clone;
+            }
         }
 
         /* the menu's current-page icons and the article list bullets, in the brand's petrol (gotka-fe/assets/tpl) */
@@ -2928,6 +2943,79 @@
                 overflow: hidden;
                 clip: rect(0 0 0 0);
                 white-space: nowrap;
+            }
+        }
+
+        /* bigger menu text on a desktop: 15px from 992px and 16px from 1440px, with the links' side padding set per
+           width so every label stays on one line and the logo keeps its size */
+        @media screen and (min-width: 992px) {
+
+            .nav_menu-link p,
+            .nav_menu-link>span,
+            .gk-signin {
+                font-size: 0.9375rem;
+            }
+
+            .nav_menu-link:not(.w--current) {
+                padding-right: 0.5rem;
+                padding-left: 0.5rem;
+            }
+
+            .nav_menu-link.w--current {
+                padding-right: 0.5rem;
+            }
+        }
+
+        /* BM's longer labels stay at 14px below 1100px */
+        @media screen and (min-width: 992px) and (max-width: 1099px) {
+
+            html[lang="ms"] .nav_menu-link p,
+            html[lang="ms"] .nav_menu-link>span {
+                font-size: 0.875rem;
+            }
+
+            html[lang="ms"] .nav_menu-link:not(.w--current) {
+                padding-right: 0.375rem;
+                padding-left: 0.375rem;
+            }
+
+            html[lang="ms"] .nav_menu-link.w--current {
+                padding-right: 0.375rem;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .nav_menu-link:not(.w--current) {
+                padding-right: 0.75rem;
+                padding-left: 0.75rem;
+            }
+
+            .nav_menu-link.w--current {
+                padding-right: 0.75rem;
+            }
+        }
+
+        @media screen and (min-width: 1280px) {
+            .gk-lang_seg {
+                font-size: 0.8125rem;
+            }
+        }
+
+        @media screen and (min-width: 1440px) {
+
+            .nav_menu-link p,
+            .nav_menu-link>span,
+            .gk-signin {
+                font-size: 1rem;
+            }
+
+            .nav_menu-link:not(.w--current) {
+                padding-right: 1rem;
+                padding-left: 1rem;
+            }
+
+            .nav_menu-link.w--current {
+                padding-right: 1rem;
             }
         }
 
@@ -3341,9 +3429,7 @@
 
 <body>
     <div class="page-wrapper">
-        <div class="gradient-wrap">
-            <div class="gradient-poster"><img alt="" fetchpriority="high" loading="eager" sizes="(max-width: 3840px) 100vw, 3840px" src="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x.webp" srcset="https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-500.webp 500w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-800.webp 800w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-1080.webp 1080w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-1600.webp 1600w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-2000.webp 2000w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-2600.webp 2600w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x-p-3200.webp 3200w, https://cdn.prod.website-files.com/6a1dd6bce5cdeadcef336317/6a361996f438ba184407d6e0_BG%20IMG%20UPDATED%203x.webp 3840w" /></div>
-        </div>
+        <div class="gradient-wrap"></div>
         <div class="progressive-blur_wrap">
             <div class="progressive-blur_panel is-1"></div>
             <div class="progressive-blur_panel is-2"></div>

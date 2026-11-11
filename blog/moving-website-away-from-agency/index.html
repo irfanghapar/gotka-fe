@@ -1295,89 +1295,150 @@
             height: auto;
         }
 
-        /* floating contact buttons on every page: WhatsApp, and "Message us" which opens the enquiry form.
-           They sit above the template's soft blur along the bottom of the screen (z-index 400) and below the menu (1000). */
+        /* the WhatsApp button floating in the corner of every page: round, green, its icon only. It pops in once the page
+           has opened and a soft ring goes out from it every few seconds; on a desktop its words show beside it on hover.
+           It sits above the template's soft blur along the bottom of the screen (z-index 400) and below the menu (1000) */
         .gk-fab {
             position: fixed;
-            right: 1.25rem;
-            bottom: 1.25rem;
+            right: 1.5rem;
+            bottom: 1.5rem;
             z-index: 500;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.625rem;
             transition: opacity 0.2s, visibility 0.2s;
         }
 
+        .gk-fab::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: 50%;
+            background-color: #25d366;
+            opacity: 0;
+            pointer-events: none;
+            animation: gk-fab-ring 4.5s cubic-bezier(0.25, 0.6, 0.4, 1) 1.8s infinite;
+        }
+
         .gk-fab_btn {
-            display: inline-flex;
+            position: relative;
+            display: flex;
             align-items: center;
-            gap: 0.625rem;
-            height: 3.125rem;
-            padding: 0 1.125rem 0 0.875rem;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 99px;
+            justify-content: center;
+            width: 3.75rem;
+            height: 3.75rem;
+            border-radius: 50%;
+            background-color: #1fae54;
+            background-image: linear-gradient(145deg, #3ddc84, #1fae54 55%, #168f45);
             color: #fff;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            line-height: 1;
             text-decoration: none;
-            box-shadow: 0 14px 30px -12px rgba(15, 29, 42, 0.55);
-            transition: transform 0.2s;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 12px 28px -8px rgba(22, 143, 69, 0.6), 0 4px 12px -2px rgba(15, 29, 42, 0.18);
+            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.25s;
+            animation: gk-fab-in 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.25) 0.6s backwards;
         }
 
         .gk-fab_btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 18px 34px -10px rgba(22, 143, 69, 0.7), 0 6px 14px -2px rgba(15, 29, 42, 0.2);
+        }
+
+        .gk-fab_btn:active {
+            transform: scale(0.96);
         }
 
         .gk-fab_btn:focus-visible {
-            outline: 3px solid var(--_colors---base--light-blue-300);
-            outline-offset: 3px;
+            outline: 3px solid #0d5c63;
+            outline-offset: 4px;
         }
 
         .gk-fab_btn svg {
-            flex: none;
-            width: 1.375rem;
-            height: 1.375rem;
+            width: 1.875rem;
+            height: 1.875rem;
+            filter: drop-shadow(0 1px 1px rgba(15, 29, 42, 0.2));
         }
 
-        .gk-fab_btn.is-wa {
-            background-color: #1fae54;
+        /* the button's words, beside it on hover or keyboard focus */
+        .gk-fab_tip {
+            position: absolute;
+            top: 50%;
+            right: calc(100% + 0.875rem);
+            padding: 0.5rem 0.875rem;
+            border-radius: 0.625rem;
+            background-color: #0f1d2a;
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            line-height: 1.2;
+            white-space: nowrap;
+            box-shadow: 0 10px 24px -10px rgba(15, 29, 42, 0.55);
+            opacity: 0;
+            transform: translate(0.5rem, -50%);
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
         }
 
-        .gk-fab_btn.is-msg {
-            background-color: var(--_colors---base--blue-100);
-            background-image: radial-gradient(circle at 200% 10%, var(--_colors---base--light-blue-300), var(--_colors---base--blue-100));
+        .gk-fab_tip::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -0.25rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 1px;
+            background-color: inherit;
+            transform: translateY(-50%) rotate(45deg);
         }
 
-        /* phones and tablets (a narrow screen, or any touch screen): round icon buttons, so they cover as little of the
-           page as possible */
+        .gk-fab_btn:hover .gk-fab_tip,
+        .gk-fab_btn:focus-visible .gk-fab_tip {
+            opacity: 1;
+            transform: translate(0, -50%);
+        }
+
+        @keyframes gk-fab-in {
+            from {
+                opacity: 0;
+                transform: translateY(1rem) scale(0.6);
+            }
+        }
+
+        @keyframes gk-fab-ring {
+            0% {
+                opacity: 0.45;
+                transform: scale(1);
+            }
+
+            35%,
+            100% {
+                opacity: 0;
+                transform: scale(1.7);
+            }
+        }
+
+        /* phones and tablets (a narrow screen, or any touch screen): a little smaller and nearer the corner, without the
+           words beside it */
         @media screen and (max-width: 991px),
         screen and (hover: none) and (pointer: coarse) {
             .gk-fab {
-                right: 0.75rem;
-                bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+                right: 1rem;
+                bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
             }
 
             .gk-fab_btn {
-                justify-content: center;
-                width: 3rem;
-                height: 3rem;
-                padding: 0;
+                width: 3.5rem;
+                height: 3.5rem;
             }
 
-            .gk-fab_btn span {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                white-space: nowrap;
+            .gk-fab_btn svg {
+                width: 1.75rem;
+                height: 1.75rem;
             }
 
-            /* they step aside while an enquiry form or a summary's send buttons are on screen, something is being
-               typed, the enquiry dialog is open or the menu is open (see FLOATING BUTTONS below): there the page's own
-               buttons run to the edge of the screen, and the floating ones would sit on top of them */
+            .gk-fab_tip {
+                display: none;
+            }
+
+            /* it steps aside while an enquiry form or a summary's send buttons are on screen, something is being typed,
+               the enquiry dialog is open or the menu is open (see FLOATING BUTTONS below): there the page's own buttons
+               run to the edge of the screen, and the floating one would sit on top of them */
             .gk-fab.is-away {
                 visibility: hidden;
                 opacity: 0;
@@ -1385,18 +1446,19 @@
             }
         }
 
-        /* on every screen they step aside at the very end of a page, while the footer's "Back to the top" is on screen
-           in the corner they float over (the script sets .is-end only where the two share that corner) */
+        /* on every screen it steps aside at the very end of a page, while the footer's "Back to the top" is on screen in
+           the corner it floats over (the script sets .is-end only where the two share that corner) */
         .gk-fab.is-end {
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
         }
 
-        /* beside a builder's own bar along the bottom, "Message us" would offer the same thing twice */
-        @media screen and (max-width: 991px) {
-            body.gk-bar-on .gk-fab_btn.is-msg {
-                display: none;
+        @media (prefers-reduced-motion: reduce) {
+
+            .gk-fab::before,
+            .gk-fab_btn {
+                animation: none;
             }
         }
 
@@ -3883,13 +3945,9 @@
         /* ── END: COPY LINK ── */
     </script>
     <div class="gk-fab">
-        <a aria-label="Chat with us on WhatsApp" class="gk-fab_btn is-wa" href="https://wa.me/601163316630?text=Hi%20Gotka%20Technologies%2C%20I%20have%20a%20question%20about%20your%20services." rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <a aria-label="Chat with us on WhatsApp" class="gk-fab_btn" href="https://wa.me/601163316630?text=Hi%20Gotka%20Technologies%2C%20I%20have%20a%20question%20about%20your%20services." rel="noopener" target="_blank"><svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8zm-3.3 4.4c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5 0 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.5-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5L9.6 8.7c-.3-.6-.5-.5-.7-.5h-.2z"></path>
-            </svg><span>WhatsApp</span></a>
-        <a aria-controls="lead-lb" aria-haspopup="dialog" aria-label="Message us — open the enquiry form" class="gk-fab_btn is-msg" data-lb-open="" href="../../contact/#lead-form"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.5 5.5h15a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3.5v-3.5h-2A1.5 1.5 0 0 1 3 16V7a1.5 1.5 0 0 1 1.5-1.5z"></path>
-                <path d="M8 10h8M8 13.5h5"></path>
-            </svg><span>Message us</span></a>
+            </svg><span class="gk-fab_tip">Chat with us on WhatsApp</span></a>
     </div>
     <dialog aria-labelledby="lb-title" class="gk-lb" id="lead-lb">
         <div class="gk-lb_box" data-lenis-prevent="">
@@ -3949,17 +4007,17 @@
         /* ── END: ENQUIRY DIALOG ── */
 
         /* ── START: FLOATING BUTTONS ── */
-        // — On phones and tablets the WhatsApp and "Message us" buttons float over the page's right-hand edge.
-        //   They step aside (the stylesheet fades .gk-fab.is-away out on narrow and touch screens) while:
+        // — On phones and tablets the WhatsApp button floats over the page's right-hand edge. It steps aside (the
+        //   stylesheet fades .gk-fab.is-away out on narrow and touch screens) while:
         //   · an enquiry form in the page, or the send buttons of a summary card, are on screen: the page's own
         //     buttons run to the edge of the screen there
         //   · something is being typed into any field: the keyboard leaves little of the screen as it is
-        //   · the enquiry dialog is open: it fills a phone's screen, and the buttons would show at its edge
-        //   · the menu is open: it is a card over the page, and the buttons would show around its edge
-        // — They come back when those have scrolled away, the field is left and the dialog or menu is closed
-        // — On every screen they also step aside (.is-end) at the very end of a page, while the footer's "Back to the top"
-        //   is on screen in the corner they float over. On a phone that row wraps and the arrow sits at the left: there
-        //   they stay
+        //   · the enquiry dialog is open: it fills a phone's screen, and the button would show at its edge
+        //   · the menu is open: it is a card over the page, and the button would show around its edge
+        // — It comes back when those have scrolled away, the field is left and the dialog or menu is closed
+        // — On every screen it also steps aside (.is-end) at the very end of a page, while the footer's "Back to the top"
+        //   is on screen in the corner it floats over. On a phone that row wraps and the arrow sits at the left: there
+        //   it stays
         (() => {
             const buttons = document.querySelector('.gk-fab');
             if (!buttons) return;
